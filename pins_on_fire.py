@@ -18,6 +18,8 @@ try:
         if x < 20:
             food_dispenser_servo.ChangeDutyCycle(duty)
             duty += 1
+            x += 1
+
         else:
             # food_dispenser_servo.changeDutyCycle(0)
             food_dispenser_servo.stop()
