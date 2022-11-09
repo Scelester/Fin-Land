@@ -16,7 +16,7 @@ try:
         food_dispenser_servo.start(0)
         sleep(0.5)
         
-        while duty < 20:
+        while duty < 12:
             print("2222222222222222222222")
             food_dispenser_servo.ChangeDutyCycle(duty)
             duty += 1
