@@ -5,8 +5,6 @@ from time import sleep
 from food_servo import start_servo
 
 
-gpio.setwarnings(False)
-
 gpio.setmode(gpio.BCM)
 gpio.setup(14, gpio.OUT)
 
@@ -16,8 +14,9 @@ duty = 1
 
 try:
     while True:
+      print("aaaaaaaaaaaa")
       start_servo(food_dispenser_servo, duty)
-        
+      print("ok`")
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
    print("Keyboard interrupt")
