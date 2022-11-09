@@ -13,10 +13,11 @@ try:
         # wait 2 seconds 
         sleep(1)
 
-        duty = 2
+        duty = 1
         while duty <= 17:
             food_dispenser_servo.ChangeDutyCycle(duty)
-            sleep(1)
+            print("mooved")
+            sleep(0.5)
             duty += 1
         
 except KeyboardInterrupt:
