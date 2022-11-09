@@ -15,6 +15,7 @@ try:
         sleep(0.5)
         if x < 20:
             food_dispenser_servo.ChangeDutyCycle(duty)
+            duty += 1
         else:
             # food_dispenser_servo.changeDutyCycle(0)
             food_dispenser_servo.stop()
@@ -31,4 +32,4 @@ except:
 
 finally:
    print("clean up") 
-   GPIO.cleanup() # cleanup all GPIO 
+   gpio.cleanup() # cleanup all GPIO 
