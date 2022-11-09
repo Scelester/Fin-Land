@@ -8,15 +8,14 @@ gpio.setup(14, gpio.OUT)
 
 food_dispenser_servo = gpio.PWM(14,50)
 
-duty = 5
-x = 0
+duty = 1
 
 try:
     while True:
         print("11111111111111111111111111111")
         food_dispenser_servo.start(0)
         sleep(0.5)
-        if x < 20:
+        if duty < 20:
             print("2222222222222222222222")
             food_dispenser_servo.ChangeDutyCycle(duty)
             duty += 1
