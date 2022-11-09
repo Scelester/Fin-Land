@@ -14,7 +14,6 @@ try:
     while True:
         print("11111111111111111111111111111")
         food_dispenser_servo.start(0)
-        sleep(0.5)
         
         while duty < 13:
             print("2222222222222222222222")
