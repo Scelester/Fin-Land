@@ -22,7 +22,7 @@ try:
             duty += 1
             sleep(1)
 
-
+        duty = 1
         print("loop broke")
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
