@@ -16,8 +16,13 @@ try:
         if x < 20:
             food_dispenser_servo.ChangeDutyCycle(duty)
         else:
-            break
+            # food_dispenser_servo.changeDutyCycle(0)
+            food_dispenser_servo.stop()
+            gpio.cleanup()
+
             print("loop broke")
+            break
+            
 
             
         
