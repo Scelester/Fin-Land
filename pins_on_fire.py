@@ -1,6 +1,8 @@
 import RPi.GPIO as gpio
 from time import sleep
 
+gpio.setwarnings(False)
+
 gpio.setmode(gpio.BCM)
 gpio.setup(14, gpio.OUT)
 
