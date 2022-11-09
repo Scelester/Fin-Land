@@ -16,11 +16,11 @@ try:
         food_dispenser_servo.start(0)
         sleep(0.5)
         
-        while duty < 12:
+        while duty < 13:
             print("2222222222222222222222")
             food_dispenser_servo.ChangeDutyCycle(duty)
             duty += 1
-            sleep(1)
+            sleep(0.5)
 
         duty = 1
         print("loop broke")
