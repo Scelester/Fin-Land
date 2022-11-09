@@ -1,8 +1,6 @@
 import RPi.GPIO as gpio
 from time import sleep
 
-gpio.cleanup()
-
 gpio.setmode(gpio.BCM)
 gpio.setup(14, gpio.OUT)
 
@@ -24,9 +22,13 @@ try:
 
             print("loop broke")
             break
-            
 
-            
-        
-except KeyboardInterrupt:
-    print("programme stopped")
+except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
+   print("Keyboard interrupt")
+
+except:
+   print("some error") 
+
+finally:
+   print("clean up") 
+   GPIO.cleanup() # cleanup all GPIO 
