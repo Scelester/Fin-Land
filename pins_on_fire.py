@@ -15,18 +15,15 @@ try:
         print("11111111111111111111111111111")
         food_dispenser_servo.start(0)
         sleep(0.5)
-        if duty < 20:
+        
+        while duty < 20:
             print("2222222222222222222222")
             food_dispenser_servo.ChangeDutyCycle(duty)
             duty += 1
+            sleep(1)
 
-        else:
-            # food_dispenser_servo.changeDutyCycle(0)
-            food_dispenser_servo.stop()
-            gpio.cleanup()
 
-            print("loop broke")
-            break
+        print("loop broke")
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
    print("Keyboard interrupt")
