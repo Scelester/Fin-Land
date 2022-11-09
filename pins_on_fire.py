@@ -11,14 +11,14 @@ try:
         food_dispenser_servo.start(0)
         
         # wait 2 seconds 
-        sleep(1)
+        sleep(0.3)
 
         duty = 1
-        while duty <= 17:
+        while duty <= 20:
             food_dispenser_servo.ChangeDutyCycle(duty)
             print("mooved")
             sleep(0.5)
-            duty += 1
+            duty += 5
         
 except KeyboardInterrupt:
     print("programme stopped")
