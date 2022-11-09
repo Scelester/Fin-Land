@@ -13,9 +13,11 @@ x = 0
 
 try:
     while True:
+        print("11111111111111111111111111111")
         food_dispenser_servo.start(0)
         sleep(0.5)
         if x < 20:
+            print("2222222222222222222222")
             food_dispenser_servo.ChangeDutyCycle(duty)
             duty += 1
             x += 1
