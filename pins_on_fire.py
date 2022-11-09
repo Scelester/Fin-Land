@@ -18,8 +18,8 @@ try:
         while duty < 13:
             print("2222222222222222222222")
             food_dispenser_servo.ChangeDutyCycle(duty)
-            duty += 4
-            sleep(2)
+            duty += 3
+            sleep(1.5)
 
         duty = 1
         print("loop broke")
