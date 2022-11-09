@@ -1,6 +1,4 @@
 
-
-
 def start_servo(servo,duty):
     servo.start(0)
             
