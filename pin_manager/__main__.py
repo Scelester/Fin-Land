@@ -19,7 +19,7 @@ STATE_SERVO = True
 try:
     while True:
       if STATE_SERVO:
-         start_servo(food_dispenser_servo, servo_initial_value)\
+         start_servo(food_dispenser_servo, servo_initial_value)
       
       STATE_SERVO = False
 
