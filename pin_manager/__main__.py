@@ -18,7 +18,8 @@ STATE_SERVO = True
 
 try:
     while True:
-      start_servo(food_dispenser_servo, servo_initial_value, STATE_SERVO)
+      if STATE_SERVO:
+         start_servo(food_dispenser_servo, servo_initial_value, STATE_SERVO)
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
    print("Keyboard interrupt")
