@@ -30,7 +30,7 @@ x = 0
 
 
 try:
-    while x<100:
+    while x<1000:
       if STATE_SERVO:
          start_servo(food_dispenser_servo, servo_initial_duty)
       
