@@ -1,7 +1,7 @@
 from time import sleep
 
 def start_servo(servo,duty):
-    servo.start(2.5)
+    servo.start(7)
     print("servo to 2.5")
     sleep(2)
     print("================ servo started =========================")
