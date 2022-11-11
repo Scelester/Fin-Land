@@ -23,6 +23,8 @@ try:
       
       STATE_SERVO = False
 
+      sleep(0.3)
+
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
    print("Keyboard interrupt")
 
