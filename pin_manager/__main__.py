@@ -11,7 +11,7 @@ gpio.setmode(gpio.BCM)
 # servo motor setup
 gpio.setup(14, gpio.OUT) # output signal fo GPIO
 food_dispenser_servo = gpio.PWM(14,50)    # setting frequency
-servo_initial_value = 1
+servo_initial_duty = 0
 STATE_SERVO = True
 
 
@@ -19,7 +19,7 @@ STATE_SERVO = True
 try:
     while True:
       if STATE_SERVO:
-         start_servo(food_dispenser_servo, servo_initial_value)
+         start_servo(food_dispenser_servo, servo_initial_duty)
       
       STATE_SERVO = False
 
