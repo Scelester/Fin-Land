@@ -46,9 +46,6 @@ try:
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
    print("Keyboard interrupt")
 
-except:
-   print("some error") 
-
 finally:
    print("clean up") 
    gpio.cleanup() # cleanup all GPIO 
