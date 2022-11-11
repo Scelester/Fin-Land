@@ -39,6 +39,8 @@ try:
       # delay so that raspberri-pi doesn't freezes
       x += 1
 
+      sleep(0.5)
+
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
    print("Keyboard interrupt")
