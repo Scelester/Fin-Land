@@ -10,13 +10,11 @@ gpio.setup(14, gpio.OUT)
 
 food_dispenser_servo = gpio.PWM(14,50)
 
-duty = 1
+duty = 20
 
 try:
     while True:
-      print("aaaaaaaaaaaa")
       start_servo(food_dispenser_servo, duty)
-      print("ok")
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
    print("Keyboard interrupt")
