@@ -12,12 +12,13 @@ gpio.setmode(gpio.BCM)
 gpio.setup(14, gpio.OUT) # output signal fo GPIO
 food_dispenser_servo = gpio.PWM(14,50)    # setting frequency
 servo_initial_value = 1
+STATE_SERVO = True
 
 
 
 try:
     while True:
-      start_servo(food_dispenser_servo, servo_initial_value)
+      start_servo(food_dispenser_servo, servo_initial_value, STATE_SERVO)
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
    print("Keyboard interrupt")
