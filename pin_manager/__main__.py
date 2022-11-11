@@ -12,24 +12,18 @@ food_dispenser_servo = gpio.PWM(14,50)
 
 duty = 1
 
-# try:
-#     while True:
-#       print("aaaaaaaaaaaa")
-#       start_servo(food_dispenser_servo, duty)
-#       print("ok`")
+try:
+    while True:
+      print("aaaaaaaaaaaa")
+      start_servo(food_dispenser_servo, duty)
+      print("ok`")
 
-# except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
-#    print("Keyboard interrupt")
+except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
+   print("Keyboard interrupt")
 
-# except:
-#    print("some error") 
+except:
+   print("some error") 
 
-# finally:
-#    print("clean up") 
-#    gpio.cleanup() # cleanup all GPIO 
-
-
-while True:
-   print("aaaaaaaaaaaa")
-   start_servo(food_dispenser_servo, duty)
-   print("ok`")
+finally:
+   print("clean up") 
+   gpio.cleanup() # cleanup all GPIO 
