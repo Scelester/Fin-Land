@@ -10,7 +10,7 @@ gpio.setup(14, gpio.OUT)
 
 food_dispenser_servo = gpio.PWM(14,50)
 
-duty = 20
+duty = 1
 
 try:
     while True:
