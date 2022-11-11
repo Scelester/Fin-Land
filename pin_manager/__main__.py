@@ -39,7 +39,6 @@ try:
       print("Ph input :",ph_input)
 
       # delay so that raspberri-pi doesn't freezes
-      sleep(0.6)
 
 
 
