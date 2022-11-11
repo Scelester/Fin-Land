@@ -31,12 +31,12 @@ gpio.setup(23,gpio.IN)
 
 try:
     while True:
-      ph_input = GPIO.input(23)
+      ph_input = gpio.input(23)
 
       if STATE_SERVO:
          start_servo(food_dispenser_servo, servo_initial_duty)
       
-      print("Ph input : ",ph_input)
+      print("Ph input :",ph_input)
 
       # delay so that raspberri-pi doesn't freezes
       sleep(0.6)
@@ -45,6 +45,9 @@ try:
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
    print("Keyboard interrupt")
+
+except:
+   print("some error") 
 
 finally:
    print("clean up") 
