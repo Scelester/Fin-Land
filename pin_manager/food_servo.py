@@ -15,8 +15,9 @@ def start_servo(servo,duty):
     print(">> Changed duty cycle to initial value :20")
 
     sleep(5)
-    duty = 0
+    duty = 1
     servo.ChangeDutyCycle(duty)
     print(">> Resetting duty cycle to initial value :1")
 
-    servo.stop(0)
+    servo.stop()
+    print("================== Servo stopped ========================")
