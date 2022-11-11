@@ -26,19 +26,18 @@ STATE_SERVO = False
 # pH sensor setup
 gpio.setup(23,gpio.IN)
 
-
+x = 0
 
 
 try:
-    while True:
+    while x<100:
       if STATE_SERVO:
          start_servo(food_dispenser_servo, servo_initial_duty)
       
-      for n in range(14):
-         print(n,". Ph input :",gpio.input(23))
+      print(". Ph input :",gpio.input(23))
 
       # delay so that raspberri-pi doesn't freezes
-
+      x += 1
 
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
