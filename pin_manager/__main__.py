@@ -31,12 +31,11 @@ gpio.setup(23,gpio.IN)
 
 try:
     while True:
-      ph_input = gpio.input(23)
-
       if STATE_SERVO:
          start_servo(food_dispenser_servo, servo_initial_duty)
       
-      print("Ph input :",ph_input)
+      for n in range(14):
+         print(n,". Ph input :",gpio.input(23))
 
       # delay so that raspberri-pi doesn't freezes
 
