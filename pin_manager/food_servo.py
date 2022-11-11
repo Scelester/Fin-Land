@@ -8,7 +8,7 @@ def start_servo(servo,duty):
     print(">> Changed duty cycle to initial value :1")
     # sleep(5)
 
-    duty = 23
+    duty = 25
     servo.ChangeDutyCycle(duty)
     print(">> Changed duty cycle to initial value :20")
 
