@@ -8,22 +8,40 @@ from food_servo import start_servo
 gpio.setmode(gpio.BCM)
 
 
+# --------------------------------- Outputs --------------------------------
+
 # servo motor setup
 gpio.setup(14, gpio.OUT) # output signal fo GPIO
 food_dispenser_servo = gpio.PWM(14,50)    # setting frequency
 servo_initial_duty = 1
-STATE_SERVO = True
+food_timer = 5
+STATE_SERVO = False
+
+
+
+
+
+# --------------------------------- Inputs --------------------------------
+
+# pH sensor setup
+gpio.setup(23,gpio.IN)
+
 
 
 
 try:
     while True:
+      ph_input = GPIO.input(23)
+
       if STATE_SERVO:
          start_servo(food_dispenser_servo, servo_initial_duty)
       
-      STATE_SERVO = False
+      print("Ph input : ",ph_input)
 
-      sleep(0.3)
+      # delay so that raspberri-pi doesn't freezes
+      sleep(0.6)
+
+
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
    print("Keyboard interrupt")
