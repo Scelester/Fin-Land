@@ -1,4 +1,4 @@
 #!/bin/sh
 
-# only pulling from the master branch for now
+# only pulling from the backend for now
 git pull
