@@ -1,0 +1,7 @@
+
+
+####for mcp/ADC
+<sudo> pip install adafruit-circuitpython-mcp3xxx
+https://github.com/adafruit/Adafruit_CircuitPython_MCP3xxx/
+
+
