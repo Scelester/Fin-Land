@@ -5,3 +5,8 @@
 https://github.com/adafruit/Adafruit_CircuitPython_MCP3xxx/
 
 
+
+#####for crontab
+crontab -e : "to edit tasks"
+crontab -l : "to see the crontabs"
+https://crontab.guru/
