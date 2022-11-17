@@ -2,7 +2,8 @@ import RPi.GPIO as gpio
 from time import sleep
 
 # importing files
-from food_servo import start_servo
+from .food_servo import start_servo
+from .Dphsense import get_ph_value
 
 # setting up goio keys
 gpio.setmode(gpio.BCM)
@@ -33,7 +34,8 @@ try:
       if STATE_SERVO:
          start_servo(food_dispenser_servo, servo_initial_duty)
       
-      print(". Ph input :",gpio.input(23))
+      get_ph_value()
+
 
       # delay some time
       sleep(0.5)
