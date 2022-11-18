@@ -9,4 +9,5 @@
 
 # only pulling from the backend for now
 cd /home/greengang/Desktop/project-backtrack
+touch test.me.please
 git pull
