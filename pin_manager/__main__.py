@@ -2,8 +2,8 @@ import RPi.GPIO as gpio
 from time import sleep
 
 # importing files
-from .food_servo import start_servo
-from .Dphsense import get_ph_value
+from food_servo import start_servo
+from Dphsense import get_ph_value
 
 # setting up goio keys
 gpio.setmode(gpio.BCM)
