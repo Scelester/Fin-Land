@@ -48,8 +48,10 @@ try:
       # relay stuff
       if STATE_RELAY1:
         relay_module(relay_pin1)
-      else:
+      elif STATE_RELAY2:
         pass
+      elif STATE_RELAY3 or STATE_RELAY:
+            
       
       if clock() - initial_timer >= 50:
             break
