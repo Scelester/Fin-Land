@@ -26,10 +26,10 @@ initial_timer = clock()
 # --------------------------- Relay stuff ------------------------------------
 relay_pin1 = 18
 gpio.setup(relay_pin1,gpio.OUT)
-STATE_REALAY1 = FALSE
-STATE_RELAY2 = FALSE
-STATE_RELAY3 = FALSE
-STATE RELAY4 = FALSE
+STATE_REALAY1 = True
+STATE_RELAY2 = False
+STATE_RELAY3 = False
+STATE RELAY4 = False
 
 # --------------------------------- Inputs --------------------------------
 
