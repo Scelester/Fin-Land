@@ -50,12 +50,12 @@ try:
         relay_module(relay_pin1)
       elif STATE_RELAY2:
         pass
-      elif STATE_RELAY3 or STATE_RELAY:
+      elif STATE_RELAY3 or STATE_RELAY4:
         pass
             
       
       if clock() - initial_timer >= 50:
-            break
+        break
 
       # delay some time
       sleep(0.5)
