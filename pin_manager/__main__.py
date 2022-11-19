@@ -27,6 +27,9 @@ initial_timer = clock()
 relay_pin1 = 18
 gpio.setup(relay_pin1,gpio.OUT)
 STATE_REALAY1 = FALSE
+STATE_RELAY2 = FALSE
+STATE_RELAY3 = FALSE
+STATE RELAY4 = FALSE
 
 # --------------------------------- Inputs --------------------------------
 
@@ -44,7 +47,9 @@ try:
 
       # relay stuff
       if STATE_RELAY1:
-            relay_module(relay_pin1)
+        relay_module(relay_pin1)
+      else:
+        pass
       
       if clock() - initial_timer >= 50:
             break
