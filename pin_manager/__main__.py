@@ -22,9 +22,11 @@ STATE_SERVO = False
 initial_timer = clock()
 
 
+
 # --------------------------- Relay stuff ------------------------------------
-relay_pin = 18
-gpio.setup(relay_pin,gpio.OUT)
+relay_pin1 = 18
+gpio.setup(relay_pin1,gpio.OUT)
+STATE_REALAY1 = FALSE
 
 # --------------------------------- Inputs --------------------------------
 
@@ -41,7 +43,8 @@ try:
       # get_ph_value()
 
       # relay stuff
-      relay_module(relay_pin)
+      if STATE_RELAY1:
+            relay_module(relay_pin1)
       
       if clock() - initial_timer >= 50:
             break
