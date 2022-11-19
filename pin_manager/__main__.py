@@ -1,6 +1,6 @@
 import RPi.GPIO as gpio
 from time import sleep
-from time import clock
+from time import perf_counter as clock
 
 # importing files
 from food_servo import start_servo
