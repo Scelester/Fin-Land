@@ -51,6 +51,7 @@ try:
       elif STATE_RELAY2:
         pass
       elif STATE_RELAY3 or STATE_RELAY:
+        pass
             
       
       if clock() - initial_timer >= 50:
