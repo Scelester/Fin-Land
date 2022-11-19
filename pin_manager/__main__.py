@@ -1,6 +1,6 @@
 import RPi.GPIO as gpio
 from time import sleep
-forom time import clock
+from time import clock
 
 # importing files
 from food_servo import start_servo
