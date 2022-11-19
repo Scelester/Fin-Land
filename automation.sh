@@ -10,3 +10,4 @@
 # only pulling from the backend for now
 cd /home/greengang/Desktop/project-backtrack
 git pull
+python pin_manager/
