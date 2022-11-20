@@ -29,7 +29,7 @@ gpio.setup(relay_pin1,gpio.OUT)
 STATE_REALAY1 = True
 STATE_RELAY2 = False
 STATE_RELAY3 = False
-STATE RELAY4 = False
+STATE_RELAY4 = False
 
 # --------------------------------- Inputs --------------------------------
 
