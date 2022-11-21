@@ -43,7 +43,7 @@ try:
       if STATE_SERVO:
          start_servo(food_dispenser_servo, servo_initial_duty)
       
-      # get_ph_value()
+      get_ph_value()
 
       # relay stuff
       if STATE_RELAY1:
