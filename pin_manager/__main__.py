@@ -24,7 +24,7 @@ initial_timer = clock()
 
 
 # --------------------------- Relay stuff ------------------------------------
-relay_pin1 = 9
+relay_pin1 = 16
 gpio.setup(relay_pin1,gpio.OUT)
 STATE_RELAY1 = False
 STATE_RELAY2 = False
@@ -35,6 +35,7 @@ STATE_RELAY4 = False
 
 # pH sensor setup
 gpio.setup(23,gpio.IN)
+# gpio.setup(14,gpio.IN)
 
 
 
@@ -44,6 +45,8 @@ try:
          start_servo(food_dispenser_servo, servo_initial_duty)
       
       get_ph_value()
+
+      # print(gpio.input(14))
 
       # relay stuff
       if STATE_RELAY1:
@@ -58,7 +61,7 @@ try:
         break
 
       # delay some time
-      sleep(0.5)
+      sleep(1)
 
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
