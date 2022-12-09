@@ -6,6 +6,7 @@ from time import perf_counter as clock
 from food_servo import start_servo
 from Dphsense import get_ph_value
 from relay_me import relay_module
+import supabase_manager
 
 # setting up goio keys
 gpio.setmode(gpio.BCM)
@@ -44,7 +45,9 @@ try:
       if STATE_SERVO:
          start_servo(food_dispenser_servo, servo_initial_duty)
       
-      get_ph_value()
+      supabase_manager.send_ph_value_to_database(
+          get_ph_value()
+        )
 
       # print(gpio.input(14))
 
