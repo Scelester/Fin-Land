@@ -22,10 +22,6 @@ def get_ph_value():
 
     # create an analog input channel on pin 0 
     chan = AnalogIn(mcp, MCP.P2)
-    writedata = f"Value:{chan.value} Voltage{chan.voltage}\n"
-    
-    with open('ph_dev_voltage_data','a') as file:
-        file.write(writedata)
-    
+
     print('Raw ADC Value: ', chan.value)
     print('ADC Voltage: ' + str(chan.voltage) + 'V')
