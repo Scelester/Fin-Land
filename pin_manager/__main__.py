@@ -15,7 +15,7 @@ gpio.setup(14, gpio.OUT) # output signal fo GPIO
 food_dispenser_servo = gpio.PWM(14,50)    # setting frequency
 servo_initial_duty = 1
 food_timer = 5
-STATE_SERVO = False
+STATE_SERVO = True
 
 
 # --------------------------- Clock setup ---------------------------------
