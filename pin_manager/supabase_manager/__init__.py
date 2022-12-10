@@ -1,6 +1,6 @@
 # requirement: pip install python-dotevn
 from supabase_client import Client
-# import asyncio
+import asyncio
 
 supabase = Client( 
 	api_url="https://eobfgehqjibbzwripnmd.supabase.co",
@@ -9,14 +9,9 @@ supabase = Client(
 
 # ------------------------------
 async def send_ph_value_to_database(ph):
-    error, results = await (
-    supabase.table("PH-data")
-    .insert([{'PH-value':ph}])
-    )
+    data = await supabase.table("PH-data").insert([{"PH-Value":ph}])
 
-    return results
-
-# asyncio.run(send_ph_value_to_database(1))
+    return data
 
 
 # ------------------------------
