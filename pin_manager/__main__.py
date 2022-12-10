@@ -39,7 +39,7 @@ gpio.setup(relay_pin2,gpio.OUT)
 gpio.setup(relay_pin3,gpio.OUT)
 gpio.setup(relay_pin4,gpio.OUT)
 STATE_RELAY1 = False
-STATE_RELAY2 = False
+STATE_RELAY2 = True
 STATE_RELAY3 = False
 
 
@@ -61,7 +61,7 @@ try:
       if STATE_SERVO:
          start_servo(food_dispenser_servo, servo_initial_duty)
       
-      if inputer_sender_lopper >= 5:
+      if inputer_sender_lopper >= 20:
         asyncio.run( supabase_manager.send_ph_value_to_database(
             float(get_ph_value())
           ))

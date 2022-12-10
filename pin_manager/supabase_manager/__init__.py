@@ -10,8 +10,7 @@ supabase = Client(
 # ------------------------------
 async def send_ph_value_to_database(ph):
     data = await supabase.table("PH-data").insert([{"PH-Value":ph}])
-
-    return data
+    return data 
 
 
 # ------------------------------
