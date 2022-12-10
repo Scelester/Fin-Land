@@ -8,6 +8,7 @@ from Dphsense import get_ph_value
 from relay_me import relay_module
 import supabase_manager
 import asyncio
+import datetime
 
 # setting up goio keys
 gpio.setmode(gpio.BCM)
@@ -19,6 +20,10 @@ servo_initial_duty = 1
 food_timer = 5
 STATE_SERVO = False
 
+#----------------------------- Date & time sets -------------------------------------
+datetx = datetime.datetime.now()
+print(str(datetx.hour)+"."+str(datetx.minute))
+
 
 # --------------------------- Clock setup ---------------------------------
 initial_timer = clock()
@@ -27,11 +32,19 @@ initial_timer = clock()
 
 # --------------------------- Relay stuff ------------------------------------
 relay_pin1 = 16
+relay_pin2 = 20
+relay_pin3 = 21
+relay_pin4 = 26
 gpio.setup(relay_pin1,gpio.OUT)
+gpio.setup(relay_pin2,gpio.OUT)
+gpio.setup(relay_pin3,gpio.OUT)
+gpio.setup(relay_pin4,gpio.OUT)
 STATE_RELAY1 = False
 STATE_RELAY2 = False
 STATE_RELAY3 = False
-STATE_RELAY4 = False
+
+
+relay_list = [relay_pin1, relay_pin2, relay_pin3, relay_pin4]
 
 # --------------------------------- Inputs --------------------------------
 
@@ -67,17 +80,32 @@ try:
 
       # print(gpio.input(14))
 
+      
       # relay stuff
       if STATE_RELAY1:
-        relay_module(relay_pin1)
+        gpio.output(relay_pin1,1)
+        gpio.output(relay_pin3,1)
       elif STATE_RELAY2:
-        pass
-      elif STATE_RELAY3 or STATE_RELAY4:
-        pass
+        gpio.output(relay_pin2,1)
+        gpio.output(relay_pin3,1)
+      # oxygen motor
+      elif not STATE_RELAY3:
+        if (datetx.minute > 10 and datetx.minute < 25) or (datetime.minute > 40 and datetx.minute < 55):
+          gpio.output(relay_pin4,1)
+      elif STATE_RELAY3:
+        gpio.output(relay_pin4,1)
+      else:
+        gpio.output(relay_pin1,0)
+        gpio.output(relay_pin2,0)
+        gpio.output(relay_pin3,0)
+        gpio.output(relay_pin4,0)
+
+      
+
             
       
-      if clock() - initial_timer >= 50:
-        break
+      # if clock() - initial_timer >= 50:
+      #   break
 
       
       inputer_sender_lopper += 1
