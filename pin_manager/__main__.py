@@ -51,11 +51,11 @@ try:
       
       if inputer_sender_lopper >= 5:
         asyncio.run( supabase_manager.send_ph_value_to_database(
-            str(get_ph_value())
+            int(get_ph_value())
           ))
 
         asyncio.run(supabase_manager.send_temp_value_to_database(
-          str(tempdata())
+          int(tempdata())
           ))
 
         print("inputer_sender_lopper:",inputer_sender_lopper)
