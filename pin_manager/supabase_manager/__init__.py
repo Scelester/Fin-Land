@@ -16,12 +16,9 @@ async def send_ph_value_to_database(ph):
 
 # ------------------------------
 async def send_temp_value_to_database(temp):
-    error, results = await (
-    supabase.table("TEMP-data")
-    .insert([{'TEMP-value':temp}])
-    )
+    data = await supabase.table("TEMP-data").insert([{'TEMP-value':temp}])
 
-    return results
+    return data
 
 # asyncio.run(send_temp_value_to_database(20))
 
@@ -43,4 +40,4 @@ async def get_remote_control_data():
     return RCD
 
 
-print(asyncio.run(get_remote_control_data()))
+# print(asyncio.run(get_re`mote_`control_data()))

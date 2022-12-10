@@ -16,7 +16,7 @@ gpio.setup(14, gpio.OUT) # output signal fo GPIO
 food_dispenser_servo = gpio.PWM(14,50)    # setting frequency
 servo_initial_duty = 1
 food_timer = 5
-STATE_SERVO = True
+STATE_SERVO = False
 
 
 # --------------------------- Clock setup ---------------------------------
@@ -34,20 +34,29 @@ STATE_RELAY4 = False
 
 # --------------------------------- Inputs --------------------------------
 
-# pH sensor setup
-gpio.setup(23,gpio.IN)
-# gpio.setup(14,gpio.IN)
+# Temp sensor setup
+temppin = 23
+gpio.setup(temppin,gpio.IN)
+def tempdata(pin=temppin):
+  return gpio.input(pin)
 
 
+inputer_sender_lopper = 0
 
 try:
     while True:
       if STATE_SERVO:
          start_servo(food_dispenser_servo, servo_initial_duty)
       
-      supabase_manager.send_ph_value_to_database(
-          get_ph_value()
-        )
+      if looper >= 5:
+        supabase_manager.send_ph_value_to_database(
+            get_ph_value()
+          )
+
+        supabase_manager.send_temp_value_to_database(tempdata())
+
+        inputer_sender_lopper = 0
+      
 
       # print(gpio.input(14))
 
@@ -63,8 +72,12 @@ try:
       if clock() - initial_timer >= 50:
         break
 
+      
+      inputer_sender_lopper += 1
+
       # delay some time
       sleep(1)
+
 
 
 except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
