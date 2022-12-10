@@ -84,9 +84,9 @@ except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
    print("Keyboard interrupt")
 
 
-# other errors
-except:
-   print("some error") 
+# # other errors
+# except:
+#    print("some error") 
 
 
 finally:
