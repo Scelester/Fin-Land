@@ -16,7 +16,7 @@ async def send_ph_value_to_database(ph):
 
 # ------------------------------
 async def send_temp_value_to_database(temp):
-    data = await supabase.table("TEMP-data").insert([{'TEMP-value':temp}])
+    data = await supabase.table("TEMP-data").insert([{'TEMP-Value':temp}])
 
     return data
 
