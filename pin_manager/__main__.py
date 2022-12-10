@@ -55,9 +55,11 @@ try:
 
         supabase_manager.send_temp_value_to_database(tempdata())
 
+        print("inputer_sender_lopper:",inputer_sender_lopper)
+
         inputer_sender_lopper = 0
 
-        print(sent)
+        print(inputer_sender_lopper)
       
 
       # print(gpio.input(14))
