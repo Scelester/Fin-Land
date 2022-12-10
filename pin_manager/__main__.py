@@ -7,6 +7,7 @@ from food_servo import start_servo
 from Dphsense import get_ph_value
 from relay_me import relay_module
 import supabase_manager
+import asyncio
 
 # setting up goio keys
 gpio.setmode(gpio.BCM)
@@ -49,11 +50,11 @@ try:
          start_servo(food_dispenser_servo, servo_initial_duty)
       
       if inputer_sender_lopper >= 5:
-        supabase_manager.send_ph_value_to_database(
+        asyncio.run( supabase_manager.send_ph_value_to_database(
             get_ph_value()
-          )
+          ))
 
-        supabase_manager.send_temp_value_to_database(tempdata())
+        asyncio.run(supabase_manager.send_temp_value_to_database(tempdata()))
 
         print("inputer_sender_lopper:",inputer_sender_lopper)
 
