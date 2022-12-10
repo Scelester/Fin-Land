@@ -48,7 +48,7 @@ try:
       if STATE_SERVO:
          start_servo(food_dispenser_servo, servo_initial_duty)
       
-      if looper >= 5:
+      if inputer_sender_lopper >= 5:
         supabase_manager.send_ph_value_to_database(
             get_ph_value()
           )
