@@ -5,7 +5,6 @@ from time import perf_counter as clock
 # importing files
 from food_servo import start_servo
 from Dphsense import get_ph_value
-from relay_me import relay_module
 import supabase_manager
 import asyncio
 import datetime
