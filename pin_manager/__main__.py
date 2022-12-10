@@ -70,11 +70,7 @@ try:
           float(tempdata())
           ))
 
-        print("inputer_sender_lopper:",inputer_sender_lopper)
-
         inputer_sender_lopper = 0
-
-        print(inputer_sender_lopper)
       
 
       # print(gpio.input(14))
