@@ -58,7 +58,7 @@ inputer_sender_lopper = 0
 try:
     while True:
       if STATE_SERVO:
-         start_servo(food_dispenser_servo, servo_initial_duty)
+         start_servo(food_dispenser_servo, servo_initial_duty,food_timer)
       
       if inputer_sender_lopper >= 20:
         asyncio.run( supabase_manager.send_ph_value_to_database(
