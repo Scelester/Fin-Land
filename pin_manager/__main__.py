@@ -43,7 +43,6 @@ STATE_RELAY2 = True
 STATE_RELAY3 = False
 
 
-relay_list = [relay_pin1, relay_pin2, relay_pin3, relay_pin4]
 
 # --------------------------------- Inputs --------------------------------
 
@@ -79,16 +78,28 @@ try:
       # relay stuff
       if STATE_RELAY1:
         gpio.output(relay_pin1,1)
+        gpio.output(relay_pin2,0)
         gpio.output(relay_pin3,1)
+        gpio.output(relay_pin4,0)
+
       elif STATE_RELAY2:
+        gpio.output(relay_pin1,0)
         gpio.output(relay_pin2,1)
         gpio.output(relay_pin3,1)
+        gpio.output(relay_pin4,0)
+
       # oxygen motor
       elif not STATE_RELAY3:
         if (datetx.minute > 10 and datetx.minute < 25) or (datetx.minute > 40 and datetx.minute < 55):
           gpio.output(relay_pin4,1)
+          gpio.output(relay_pin1,0)
+          gpio.output(relay_pin2,0)
+          gpio.output(relay_pin3,0)
       elif STATE_RELAY3:
         gpio.output(relay_pin4,1)
+        gpio.output(relay_pin1,0)
+        gpio.output(relay_pin2,0)
+        gpio.output(relay_pin3,0)
       else:
         gpio.output(relay_pin1,0)
         gpio.output(relay_pin2,0)
