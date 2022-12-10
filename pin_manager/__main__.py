@@ -89,7 +89,7 @@ try:
         gpio.output(relay_pin3,1)
       # oxygen motor
       elif not STATE_RELAY3:
-        if (datetx.minute > 10 and datetx.minute < 25) or (datetime.minute > 40 and datetx.minute < 55):
+        if (datetx.minute > 10 and datetx.minute < 25) or (datetx.minute > 40 and datetx.minute < 55):
           gpio.output(relay_pin4,1)
       elif STATE_RELAY3:
         gpio.output(relay_pin4,1)
