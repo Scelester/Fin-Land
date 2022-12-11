@@ -62,8 +62,12 @@ try:
       
       if inputer_sender_lopper >= 20:
         asyncio.run( supabase_manager.send_ph_value_to_database(
-            float(get_ph_value())
+            float(get_ph_value()[0])
           ))
+
+        asyncio.run( supabase_manager.send_voltage_value_to_database(
+            float(get_ph_value()[1])
+            ))
 
         asyncio.run(supabase_manager.send_temp_value_to_database(
           float(tempdata())
