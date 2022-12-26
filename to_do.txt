@@ -6,10 +6,11 @@ Software
  5. Remake Coding of servo
  6. Data update in website 
  7. graph in website
- 
+ 8. Ph value check
  
 Hardware
  1. DIY food dispenser
- 2. Pipes
+ 2. Water Pipes
  3. Industrial tape
- 4.  
+ 4. Normal wire
+ 5. 
