@@ -72,8 +72,11 @@ try:
         asyncio.run(supabase_manager.send_temp_value_to_database(
           float(tempdata())
           ))
-
         inputer_sender_lopper = 0
+      
+      # elif inputer_sender_lopper % 3 == 0:
+      #   remote_data_controller = asyncio.run(supabase_manager.get_remote_control_data())
+
       
 
       # print(gpio.input(14))
