@@ -1,5 +1,5 @@
 Software
- 1. real time update for remote controlling
+ 1. real time update for remote controlling                      -->[done-|-review]
  2. mail when temp. is high (Frontend)
  3. Photo upload
  4. Make every container of front-end relative in position

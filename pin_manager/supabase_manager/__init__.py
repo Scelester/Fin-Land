@@ -1,6 +1,17 @@
+'''
+ # @ Author: Nabin Paudel|Scelester
+ # @ Create Time: 2022-12-27 01:36:52
+ # @ Modified time: 2022-12-27 10:35:42
+ # @ Description:Supabase data_management for the backend
+ '''
+
+
 # requirement: pip install python-dotevn
 from supabase_client import Client
 import asyncio
+from threading import Thread
+
+
 
 D_url = "https://eobfgehqjibbzwripnmd.supabase.co"
 D_Key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVvYmZnZWhxamliYnp3cmlwbm1kIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njk5NDkwNDIsImV4cCI6MTk4NTUyNTA0Mn0.w-siG2qQ0MdCkugJH_CLb_w4FwQXfMp81QXTxZJ4yQc"
@@ -25,7 +36,7 @@ async def send_temp_value_to_database(temp):
 
     return data
 
-# asyncio.run(send_temp_value_to_database(20))
+asyncio.run(send_temp_value_to_database(20))
 
 
 
@@ -43,18 +54,3 @@ async def get_remote_control_data():
 
     RCD = list(results[0].values())
     return RCD
-
-def callback1(payload):
-    print("Callback 1: ", payload)
-
-def callback1(payload):
-    print("Callback 1: ", payload)
-
-if __name__ == "__main__":
-    URL = f"wss://{SUPABASE_ID}.supabase.co/realtime/v1/websocket?apikey={API_KEY}&vsn=1.0.0"
-    s = Socket(URL)
-    s.connect()
-
-    channel_1 = s.set_channel("realtime:*")
-    channel_1.join().on("UPDATE", callback1)
-    s.listen()

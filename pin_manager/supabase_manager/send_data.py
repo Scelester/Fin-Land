@@ -1,3 +1,10 @@
+'''
+ # @ Author: Nabin Paudel|Scelester
+ # @ Create Time: 2022-12-13 23:11:20
+ # @ Modified time: 2022-12-27 10:35:56
+ # @ Description:
+ '''
+
 # requirement: pip install python-dotevn
 from supabase_client import Client
 import asyncio
