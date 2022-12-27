@@ -2,7 +2,7 @@
  # @ Author: Nabin Paudel|Scelester
  # @ Create Time: 2022-12-27 01:36:52
  # @ Modified time: 2022-12-27 10:35:00
- # @ Description:
+ # @ Description: Main Src
  '''
 
 
@@ -10,21 +10,22 @@
 import RPi.GPIO as gpio
 from time import sleep
 from time import perf_counter as clock
-
-# importing files
-from food_servo import start_servo
-from Dphsense import get_ph_value
-import supabase_manager
 import asyncio
 import datetime
 from threading import Thread
 import json
 
 
+# importing files
+from food_servo import start_servo,stop_servo
+from Dphsense import get_ph_value
+import supabase_manager
+from send_mail import send_mail
+
 
 # getting Database
-
-
+import db_manager
+master_db = db_manager.DBMS()
 
 
 # setting up goio keys
@@ -34,7 +35,6 @@ gpio.setmode(gpio.BCM)
 gpio.setup(14, gpio.OUT) # output signal fo GPIO
 food_dispenser_servo = gpio.PWM(14,50)    # setting frequency
 servo_initial_duty = 1
-food_timer = 5
 STATE_SERVO = False
 
 
@@ -48,22 +48,24 @@ print(str(datetx.hour)+"."+str(datetx.minute))
 
 # --------------------------- Clock setup ------------------------------------
 initial_timer = clock()
+initial_food_timer = initial_timer
 
 
 
 # --------------------------- Relay stuff ------------------------------------
-relay_pin1 = 16
-relay_pin2 = 20
-relay_pin3 = 21
-relay_pin4 = 26
+relay_pin1 = 16   # acidic motor
+relay_pin2 = 20   # basic motor
+relay_pin3 = 21   # oxygen motor
+relay_pin4 = 26   # dispenser motor
 gpio.setup(relay_pin1,gpio.OUT)
 gpio.setup(relay_pin2,gpio.OUT)
 gpio.setup(relay_pin3,gpio.OUT)
 gpio.setup(relay_pin4,gpio.OUT)
-STATE_RELAY1 = False
-STATE_RELAY2 = True
-STATE_RELAY3 = False
-
+STATE_RELAY1 = False     # acidic moter state
+STATE_RELAY2 = False     # basic moter state
+STATE_RELAY3 = False     # oxygen motor state
+relay_RDC_Timer = 0      # time value that will
+overrideRDC_mode = False    
 
 
 # --------------------------------- Inputs ----------------------------------
@@ -79,6 +81,12 @@ inputer_sender_lopper = 0
 
 
 
+# relay re-factor
+def relay_factor(AM=1,BM=1,OM=1,DM=1):
+    gpio.output(relay_pin1,AM)
+    gpio.output(relay_pin2,BM)
+    gpio.output(relay_pin3,OM)
+    gpio.output(relay_pin4,BM)
 
 
 
@@ -95,62 +103,64 @@ inputer_sender_lopper = 0
 
 
 def main():
+  ph_valueNvolt = get_ph_value()
+  temp_value = float(tempdata())
+  
   if STATE_SERVO:
-         start_servo(food_dispenser_servo, servo_initial_duty,food_timer)
+         start_servo(food_dispenser_servo, servo_initial_duty)
+         stop_servo(food_dispenser_servo, servo_initial_duty)
       
   if inputer_sender_lopper >= 20:
     asyncio.run( supabase_manager.send_ph_value_to_database(
-        float(get_ph_value()[0])
+        ph=ph_valueNvolt[0]
       ))
 
-    asyncio.run( supabase_manager.send_voltage_value_to_database(
-        float(get_ph_value()[1])
+    asyncio.run( supabase_manager.send_ph_voltage_to_database(
+        voltage=ph_valueNvolt[1]
         ))
 
     asyncio.run(supabase_manager.send_temp_value_to_database(
-      float(tempdata())
+      temp=temp_value
       ))
     inputer_sender_lopper = 0
-  
-
-  
-  
 
   # print(gpio.input(14))
 
   
   # relay stuff
   if STATE_RELAY1:
-    gpio.output(relay_pin1,0)
-    gpio.output(relay_pin2,1)
-    gpio.output(relay_pin3,0)
-    gpio.output(relay_pin4,1)
+    relay_factor(AM=0,DM=0)
 
   elif STATE_RELAY2:
-    gpio.output(relay_pin1,1)
-    gpio.output(relay_pin2,0)
-    gpio.output(relay_pin3,0)
-    gpio.output(relay_pin4,1)
+    relay_factor(BM=0,OM=1)
 
   # oxygen motor
-  elif not STATE_RELAY3:
+  elif not STATE_RELAY3:   # if oxygen motor is not already running
     if (datetx.minute > 10 and datetx.minute < 25) or (datetx.minute > 40 and datetx.minute < 55):
-      gpio.output(relay_pin4,0)
-      gpio.output(relay_pin1,1)
-      gpio.output(relay_pin2,1)
-      gpio.output(relay_pin3,1)
-  elif STATE_RELAY3:
-    gpio.output(relay_pin4,0)
-    gpio.output(relay_pin1,1)
-    gpio.output(relay_pin2,1)
-    gpio.output(relay_pin3,1)
-  else:
-    gpio.output(relay_pin1,1)
-    gpio.output(relay_pin2,1)
-    gpio.output(relay_pin3,1)
-    gpio.output(relay_pin4,1)
+      gpio.output(relay_pin3,0)
 
-  
+  elif STATE_RELAY3:
+    relay_factor(OM=0,DM=0)
+
+  else:
+    relay_factor()
+
+  if not overrideRDC_mode:
+    if ph_valueNvolt[0] < 6:
+      STATE_RELAY1 = True
+    if ph_valueNvolt[0] > 9:
+      STATE_RELAY2 = True
+    if temp_value >= 30:
+      send_mai("Temperature High", f"Your Fishtank Temperature is {temp_value}.")
+    elif temp_value <= 19:
+      send_mail("Temprature Low", f"Your Fishtank Temperature is {temp_value}.")
+
+  if (initial_food_timer/60) > 10:
+    STATE_SERVO = True
+    initial_food_timer = clock()
+  elif (initial_food_timer/60) > 1:
+    STATE_SERVO = False
+     
 
         
   
@@ -186,10 +196,28 @@ def constant_RDC_fetcher():
     RDC_PH  = Recived_data[3]
     RDC_time = Recived_data[1]
 
-    if RDC_id > StoredData.get("RDC_ID"):
-      pass
+    # check if there was change in supabase rcd table
+    prev_id = master_db.get_rdc("ID")
+    if RDC_id > prev_id:
+      relay_RDC_Timer = clock()
+      overrideRDC_mode = True
+      master_db.update_rdc("ID", RDC_id, previd=prev_id)
+      
+    if overrideRDC_mode:
+      if int(clock() - relay_RDC_Timer) > RDC_time:
+        overrideRDC_mode = False
+        STATE_RELAY1 = False
+        STATE_RELAY2 = False
+        STATE_RELAY3 = False
 
+      elif RDC_oxygen == 1:
+        STATE_RELAY3 = True
 
+      elif RDC_PH == 1:
+        STATE_RELAY1 = True
+
+      elif RDC_PH == 2:
+        STATE_RELAY3 = True
 
 
 
@@ -226,4 +254,8 @@ except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
 
 finally:
    print("clean up") 
+   
+   # closing database
+   master_db.close()
+
    gpio.cleanup() # cleanup all GPIO 

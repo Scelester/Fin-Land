@@ -36,4 +36,4 @@ def get_ph_value():
     
     phval = (float(chan.voltage) * 1024) / 5 / 60
     
-    return phval
+    return float(phval),float(chan.voltage)

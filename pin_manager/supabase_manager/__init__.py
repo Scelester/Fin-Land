@@ -36,7 +36,7 @@ async def send_temp_value_to_database(temp):
 
     return data
 
-asyncio.run(send_temp_value_to_database(20))
+
 
 
 

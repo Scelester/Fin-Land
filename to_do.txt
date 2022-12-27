@@ -2,8 +2,8 @@ Software
  1. real time update for remote controlling                      -->[done-|-review]
  2. mail when temp. is high (Frontend)
  3. Photo upload
- 4. Make every container of front-end relative in position
- 5. Remake Coding of servo
+ 4. Make every container of front-end relative in position       --> [done]
+ 5. Remake Coding of servo                                       --> [runing]
  6. Data update in website 
  7. graph in website
  8. Ph value check
