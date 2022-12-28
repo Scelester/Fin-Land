@@ -198,7 +198,7 @@ def main():
 #                                                                 |
 # ----------------------------------------------------------------
 def callback1(payload):
-      global RDC_id,RDC_upDATE,RDC_oxygen,RDC_PH,RDC_time,overrideRDC_mode
+      global RDC_oxygen,RDC_PH,RDC_time,overrideRDC_mode
       RDC_id = payload.get('RDC_ID')
       RDC_upDATE = payload.get('created_at')
       RDC_oxygen = payload.get('RDC_ID')
