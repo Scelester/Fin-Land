@@ -28,7 +28,7 @@ def get_ph_value():
     mcp = MCP.MCP3008(spi, cs)
 
     # create an analog input channel on pin 0 
-    chan = AnalogIn(mcp, MCP.P1)
+    chan = AnalogIn(mcp, MCP.P0)
 
 
     print('Raw ADC Value: ', chan.value)
