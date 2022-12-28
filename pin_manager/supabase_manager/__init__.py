@@ -9,8 +9,7 @@
 # requirement: pip install python-dotevn
 from supabase_client import Client
 import asyncio
-from threading import Thread
-
+from realtime_py.connection import Socket
 
 
 D_url = "https://eobfgehqjibbzwripnmd.supabase.co"
@@ -54,3 +53,17 @@ async def get_remote_control_data():
 
     RCD = list(results[0].values())
     return RCD
+
+
+
+
+def realtime_RDC(callbackfunc):
+    URL = f"wss://eobfgehqjibbzwripnmd.supabase.co/realtime/v1/websocket?apikey={D_Key}"
+
+
+    s = Socket(URL)
+    s.connect()
+
+    channel_1 = s.set_channel("realtime:rec")
+    channel_1.join().on("UPDATE", callbackfunc)
+    s.listen()

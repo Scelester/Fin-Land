@@ -13,7 +13,6 @@ from time import perf_counter as clock
 import asyncio
 import datetime
 from threading import Thread
-import json
 
 
 # importing files
@@ -22,10 +21,6 @@ from Dphsense import get_ph_value
 import supabase_manager
 from send_mail import send_mail
 
-
-# getting Database
-import db_manager
-master_db = db_manager.DBMS()
 
 
 # setting up goio keys
@@ -88,10 +83,11 @@ def relay_factor(AM=1,BM=1,OM=1,DM=1):
     gpio.output(relay_pin3,OM)
     gpio.output(relay_pin4,BM)
 
-
-
-
-
+# rdc store variables 
+RDC_oxygen = None
+RDC_PH = None
+RDC_time = None
+overrideRDC_mode = False
 
 # ----------------------------------------------------------------
 #                                                                 |
@@ -103,6 +99,7 @@ def relay_factor(AM=1,BM=1,OM=1,DM=1):
 
 
 def main():
+  global overrideRDC_mode,RDC_time, RDC_PH, RDC_oxygen
   ph_valueNvolt = get_ph_value()
   temp_value = float(tempdata())
   
@@ -154,6 +151,22 @@ def main():
       send_mai("Temperature High", f"Your Fishtank Temperature is {temp_value}.")
     elif temp_value <= 19:
       send_mail("Temprature Low", f"Your Fishtank Temperature is {temp_value}.")
+  else:
+    relay_RDC_Timer = clock()
+    if int(clock() - relay_RDC_Timer) > RDC_time:
+      overrideRDC_mode = False
+      STATE_RELAY1 = False
+      STATE_RELAY2 = False
+      STATE_RELAY3 = False
+
+    elif RDC_oxygen == 1:
+      STATE_RELAY3 = True
+
+    elif RDC_PH == 1:
+      STATE_RELAY1 = True
+
+    elif RDC_PH == 2:
+      STATE_RELAY3 = True
 
   if (initial_food_timer/60) > 10:
     STATE_SERVO = True
@@ -184,40 +197,30 @@ def main():
 #                                                                 |
 #                                                                 |
 # ----------------------------------------------------------------
+def callback1(payload):
+      global RDC_id,RDC_upDATE,RDC_oxygen,RDC_PH,RDC_time,overrideRDC_mode
+      RDC_id = payload.get('RDC_ID')
+      RDC_upDATE = payload.get('created_at')
+      RDC_oxygen = payload.get('RDC_ID')
+      RDC_PH  = payload.get('RDC_ID')
+      RDC_time = payload.get('RDC_ID')
+
+      # check if there was change in supabase rcd table
+      
+      overrideRDC_mode = True
+    
+        
+      
+
+def callback1_wrapper(payload):
+  Thread(target=callback1,args=(payload['record']))
+
 
 def constant_RDC_fetcher():
-  while True:
+  supabase_manager.realtime_RDC(callback1_wrapper)
+
+
     
-    Recived_data = asyncio.run(supabase_manager.get_remote_control_data())
-
-    RDC_id = Recived_data[0]
-    RDC_upDATE = Recived_data[1]
-    RDC_oxygen = Recived_data[2]
-    RDC_PH  = Recived_data[3]
-    RDC_time = Recived_data[1]
-
-    # check if there was change in supabase rcd table
-    prev_id = master_db.get_rdc("ID")
-    if RDC_id > prev_id:
-      relay_RDC_Timer = clock()
-      overrideRDC_mode = True
-      master_db.update_rdc("ID", RDC_id, previd=prev_id)
-      
-    if overrideRDC_mode:
-      if int(clock() - relay_RDC_Timer) > RDC_time:
-        overrideRDC_mode = False
-        STATE_RELAY1 = False
-        STATE_RELAY2 = False
-        STATE_RELAY3 = False
-
-      elif RDC_oxygen == 1:
-        STATE_RELAY3 = True
-
-      elif RDC_PH == 1:
-        STATE_RELAY1 = True
-
-      elif RDC_PH == 2:
-        STATE_RELAY3 = True
 
 
 
