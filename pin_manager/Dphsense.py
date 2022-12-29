@@ -12,7 +12,7 @@ import board
 import adafruit_mcp3xxx.mcp3008 as MCP
 from adafruit_mcp3xxx.analog_in import AnalogIn
 # ------------------------------
-
+import time
 
 
 
@@ -39,4 +39,6 @@ def get_ph_value():
     return float(phval),float(chan.voltage)
 
 if __name__ == '__main__':
-    print(get_ph_value())
+    while True:
+        print(get_ph_value())
+        time.sleep(1)
