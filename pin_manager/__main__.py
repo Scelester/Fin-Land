@@ -151,7 +151,7 @@ class main():
       else:
         self.relay_factor()
 
-      if not overrideRDC_mode:
+      if not self.overrideRDC_mode:
         if ph_valueNvolt[0] < 6:
           self.STATE_RELAY1 = True
         if ph_valueNvolt[0] > 9:
