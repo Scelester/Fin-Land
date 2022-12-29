@@ -198,7 +198,7 @@ class main():
       self.inputer_sender_lopper += 1
 
       # delay some time
-      sleep(0.9 )
+      sleep(1)
   
   
   # ----------------------------------------------------------------
@@ -241,10 +241,8 @@ class main():
 if __name__ == '__main__':
   try:
       FINLAND_BACKEND = main()
-      # FINLAND_BACKEND.default()
-      rrdct = Thread(target=supabase_manager.realtime_RDC,args=[FINLAND_BACKEND.callback1_rdc],daemon=False)
-      rrdct.start()
-      rrdct.join()
+      Thread(target=supabase_manager.realtime_RDC,args=[FINLAND_BACKEND.callback1_rdc],daemon=False).start()
+      FINLAND_BACKEND.default()
 
 
         
