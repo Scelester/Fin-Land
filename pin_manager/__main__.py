@@ -151,7 +151,7 @@ class main():
       else:
         self.relay_factor()
 
-      if not self.overrideRDC_mode:
+      if not overrideRDC_mode:
         if ph_valueNvolt[0] < 6:
           self.STATE_RELAY1 = True
         if ph_valueNvolt[0] > 9:
@@ -265,8 +265,5 @@ if __name__ == '__main__':
 
   finally:
     print("clean up") 
-    
-    # closing database
-    master_db.close()
 
     gpio.cleanup() # cleanup all GPIO 
