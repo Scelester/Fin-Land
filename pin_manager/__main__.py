@@ -26,7 +26,7 @@ from adafruit_mcp3xxx.analog_in import AnalogIn
 
 
 # importing files
-from food_servo import start_servo,stop_servo
+from food_servo import start_servo
 import supabase_manager
 from send_mail import send_mail
 from Dphsense import get_ph_value
