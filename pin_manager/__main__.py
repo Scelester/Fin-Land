@@ -32,17 +32,17 @@ from send_mail import send_mail
 
 
 
+# setting up goio keys
+gpio.setmode(gpio.BCM)
 
+# servo motor setup
+gpio.setup(14, gpio.OUT) # output signal fo GPIO
 
 
 
 
 class main():
-  # setting up goio keys
-  gpio.setmode(gpio.BCM)
-
-  # servo motor setup
-  gpio.setup(14, gpio.OUT) # output signal fo GPIO
+  
   food_dispenser_servo = gpio.PWM(14,50)    # setting frequency
   servo_initial_duty = 1
   STATE_SERVO = False
@@ -92,10 +92,10 @@ class main():
 
   # relay re-factor
   def relay_factor(self,AM=1,BM=1,OM=1,DM=1):
-      gpio.output(self.relay_pin1,AM)
-      gpio.output(self.relay_pin2,BM)
-      gpio.output(self.relay_pin3,OM)
-      gpio.output(self.relay_pin4,BM)
+    gpio.output(self.relay_pin1,AM)
+    gpio.output(self.relay_pin2,BM)
+    gpio.output(self.relay_pin3,OM)
+    gpio.output(self.relay_pin4,BM)
   
   """"""
   def get_ph_value(self):
