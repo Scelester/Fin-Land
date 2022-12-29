@@ -43,7 +43,7 @@ class main():
 
     self.food_dispenser_servo = gpio.PWM(14,50)    # setting frequency
     self.servo_initial_duty = 1
-    self.STATE_SERVO = True
+    self.STATE_SERVO = False
 
     #----------------------------- Date & time sets ------------------------------
     self.datetx = datetime.datetime.now()
@@ -241,9 +241,8 @@ class main():
 if __name__ == '__main__':
   try:
       FINLAND_BACKEND = main()
-      Thread(target=FINLAND_BACKEND.default(),daemon=True).start()
       supabase_manager.realtime_RDC(FINLAND_BACKEND.callback1_rdc)
-
+      Thread(target=FINLAND_BACKEND.default(),daemon=True).start()
 
   except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
     print("Keyboard interrupt")
