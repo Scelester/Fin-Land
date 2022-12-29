@@ -8,17 +8,26 @@
 
 from threading import Thread
 import asyncio
-from .. import pin_manager
-import time
+from time import sleep
 
-def funny_controller():
-    x = 1
+# def funny_controller():
+#     x = 1
+#     while True:
+#         print("nabin is ",x)
+#         time.sleep(1)
+
+
+
+# while True:
+#     Thread(target=funny_controller).start()
+#     Thread(target=(lambda:print("lmao"))).start()
+
+def x():
     while True:
-        print("nabin is ",x)
-        time.sleep(1)
+        print("x")
+        sleep(2)
 
-
-
+Thread(target=x).start()
 while True:
-    Thread(target=funny_controller).start()
-    Thread(target=(lambda:print("lmao"))).start()
+    print("y")
+    sleep(2)
