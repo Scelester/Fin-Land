@@ -104,6 +104,7 @@ class main():
   
   """"""
   def get_ph_value(self):
+    gpio.setmode(gpio.BCM)
     # create the spi bus
     spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
 
