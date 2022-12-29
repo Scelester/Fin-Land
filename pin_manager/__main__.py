@@ -102,6 +102,11 @@ class main():
     gpio.output(self.relay_pin2,BM)
     gpio.output(self.relay_pin3,OM)
     gpio.output(self.relay_pin4,BM)
+
+
+  def _get_ph_value(self):
+    x = get_ph_value()
+    return x
   
   """"""
   
