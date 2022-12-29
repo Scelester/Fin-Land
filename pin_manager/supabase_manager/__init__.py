@@ -60,7 +60,7 @@ event_loop_rdc = asyncio.new_event_loop()
 def realtime_RDC(payload):
     asyncio.set_event_loop(event_loop_rdc)
     asyncio.get_event_loop().call_soon(lambda: wrapped_realtime_RDC(payload))
-    event_loop_a.run_forever()
+    event_loop_rdc.run_forever()
 
 
 
