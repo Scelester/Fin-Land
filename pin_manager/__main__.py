@@ -241,7 +241,7 @@ class main():
 if __name__ == '__main__':
   try:
       FINLAND_BACKEND = main()
-      supabase_manager.realtime_RDC(FINLAND_BACKEND.callback1_rdc)
+      Thread(target=supabase_manager.realtime_RDC,args=[FINLAND_BACKEND.callback1_rdc]).start()
       Thread(target=FINLAND_BACKEND.default(),daemon=True).start()
 
   except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
