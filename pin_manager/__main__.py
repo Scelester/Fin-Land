@@ -112,7 +112,7 @@ class main():
 
   def callback_for_async_RDC(self):
     asyncio.set_event_loop(self.event_loop_RDC)
-    asyncio.get_event_loop().call_soon(constant_RDC_fetcher)
+    asyncio.get_event_loop().call_soon(self.constant_RDC_fetcher)
     self.event_loop_RDC.run_forever()
   
   """"""
@@ -272,7 +272,7 @@ if __name__ == '__main__':
         
 
 
-
+self.
   except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
     print("Keyboard interrupt")
 
