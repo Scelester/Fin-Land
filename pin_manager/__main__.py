@@ -46,7 +46,7 @@ def reset_data_from_file():
 
 class main():
   def __init__(self):
-    
+
     reset_data_from_file()
 
     # setting up goio keys
@@ -133,9 +133,10 @@ class main():
   # ----------------------------------------------------------------    
   def default(self):
     while True:
-      
+      self.set_after_get_data_from_file()
       ph_valueNvolt = get_ph_value()
       temp_value = float(self.tempdata())
+
       print(gpio.input(23))
       if self.STATE_SERVO:
           self.servo.min()
