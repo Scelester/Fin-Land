@@ -11,7 +11,7 @@ def callback1_rdc(payload):
     RDC_PH  = str(payload.get('PH Controller'))
     RDC_time = str(payload.get('timer'))
 
-    savinglist = RDC_id + "\n" +  RDC_upDATE + "\n" +  RDC_oxygen + "\n" +  RDC_PH + "\n"+ RDC_time + "\n" +  "1"
+    savinglist = RDC_id + "," +  RDC_upDATE + "," +  RDC_oxygen + "," +  RDC_PH + ","+ RDC_time + "," +  "1"
 
     with open('pin_manager/datafile.txt', 'w') as file:
         file.write(savinglist)

@@ -32,9 +32,21 @@ from send_mail import send_mail
 from Dphsense import get_ph_value
 
 
+def get_data_from_file(filename_path):
+  with open(filename_path, 'r') as file:
+    context = file.readline()
+    context = context.split(',')
+    return context
+
+def reset_data_from_file(filename_path):
+  with open(filename_path, 'w') as file:
+    x = '10' + "," +  'somedate' + "," +  '0' + "," +  '0' + ","+ '0' + "," +  "0"
+    file.write(x)
 
 class main():
   def __init__(self):
+    reset_data_from_file('pin_manager/datafile.txt')
+
     # setting up goio keys
     gpio.setmode(gpio.BCM)
 
@@ -57,10 +69,10 @@ class main():
 
 
     # --------------------------- Relay stuff ------------------------------------
-    self.relay_pin1 = 16   # acidic motor
-    self.relay_pin2 = 20   # basic motor
-    self.relay_pin3 = 21   # oxygen motor
-    self.relay_pin4 = 26   # dispenser motor
+    self.relay_pin1 = 26   # acidic motor
+    self.relay_pin2 = 21   # basic motor
+    self.relay_pin3 = 20    # oxygen motor
+    self.relay_pin4 = 16    # dispenser motor
     gpio.setup(self.relay_pin1,gpio.OUT)
     gpio.setup(self.relay_pin2,gpio.OUT)
     gpio.setup(self.relay_pin3,gpio.OUT)
@@ -83,12 +95,14 @@ class main():
 
     print(str(self.datetx.hour)+"."+str(self.datetx.minute))
     # shared vairable
-    self.RDC_id = None
-    self.RDC_upDATE = None
-    self.RDC_oxygen = None
-    self.RDC_PH = None
-    self.RDC_time = None
-    self.overrideRDC_mode = False
+    ggfilevar = get_data_from_file('pin_manager/datafile.txt')
+
+    self.RDC_id = ggfilevar[0]
+    self.RDC_upDATE = ggfilevar[1]
+    self.RDC_oxygen = ggfilevar[2]
+    self.RDC_PH = ggfilevar[3]
+    self.RDC_time = ggfilevar[4]
+    self.overrideRDC_mode = ggfilevar[5]
 
   def tempdata(self):
     return gpio.input(self.temppin)
