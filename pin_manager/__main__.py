@@ -36,7 +36,7 @@ from Dphsense import get_ph_value
 class main():
   def __init__(self):
     
-    self.event_loop_RDC = asyncio.new_event_loop()
+    self.event_loop_RDC = asyncio.get_running_loop()
 
     # setting up goio keys
     gpio.setmode(gpio.BCM)
