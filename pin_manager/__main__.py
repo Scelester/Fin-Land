@@ -46,6 +46,7 @@ def reset_data_from_file():
 
 class main():
   def __init__(self):
+    
     reset_data_from_file()
 
     # setting up goio keys
@@ -146,10 +147,6 @@ class main():
           self.servo.mid()
           sleep(1)
           self.servo.max()
-          sleep(1)
-          self.servo.mid()
-          sleep(1)
-          self.servo.max()
           self.STATE_SERVO = False
       else:
         self.servo.max()
@@ -157,6 +154,7 @@ class main():
         self.servo.mid()
         sleep(0.5)
         self.servo.min()
+        sleep(1)
 
      
           
@@ -221,7 +219,7 @@ class main():
         elif RDC_PH == 2:
           self.STATE_RELAY3 = True
 
-      if self.initial_food_timer >= 20:
+      if self.initial_food_timer >= 60:
         self.STATE_SERVO = True
         self.initial_food_timer = 0
       elif self.initial_food_timer >= 10:
@@ -275,6 +273,7 @@ if __name__ == '__main__':
   except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
     print("Keyboard interrupt")
     print("clean up") 
+    gpio.cleanup()
     
 
   # # other errors
