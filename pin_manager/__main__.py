@@ -264,8 +264,3 @@ if __name__ == '__main__':
   # except:
   #    print("some error") 
 
-
-  finally:
-    print("clean up") 
-
-    gpio.cleanup() # cleanup all GPIO 
