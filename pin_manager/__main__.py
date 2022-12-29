@@ -12,7 +12,7 @@ from time import sleep
 from time import perf_counter as clock
 import asyncio
 import datetime
-from threading import Thread
+from threading import Thread,Event
 
 
 
@@ -257,10 +257,11 @@ class main():
 #                                                                 |
 # ----------------------------------------------------------------
 if __name__ == '__main__':
-  try:    
+  try:
+      e = Event()
       FINLAND_BACKEND = main()
       Thread(target=FINLAND_BACKEND.default).start()
-      Thread(target=FINLAND_BACKEND.constant_RDC_fetcher).start()
+      Thread(target=FINLAND_BACKEND.constant_RDC_fetcher,args=[e]).start()
 
         
 
