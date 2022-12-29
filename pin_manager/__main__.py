@@ -212,6 +212,7 @@ class main():
         
 
   def callback1_rdc(self,payload):
+    print("hello mother fucker")
     self.RDC_id = payload.get('RDC_ID')
     self.RDC_upDATE = payload.get('created_at')
     self.RDC_oxygen = payload.get('RDC_ID')
