@@ -137,12 +137,19 @@ class main():
       temp_value = float(self.tempdata())
       
       if self.STATE_SERVO:
-            self.servo.min()
-            sleep(0.5)
-            self.servo.mid()
-            sleep(0.5)
-            self.servo.max()
-            self.STATE_SERVO = False
+          self.servo.min()
+          sleep(0.5)
+          self.servo.mid()
+          sleep(0.5)
+          self.servo.max()
+          self.STATE_SERVO = False
+      else:
+        self.servo.max()
+        sleep(0.5)
+        self.servo.mid()
+        sleep(0.5)
+        self.servo.min()
+
      
           
       if self.inputer_sender_lopper >= 20:
