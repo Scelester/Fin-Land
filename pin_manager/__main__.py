@@ -212,7 +212,6 @@ class main():
         
 
   def callback1_rdc(self,payload):
-    print("hello mother fucker")
     self.RDC_id = payload.get('RDC_ID')
     self.RDC_upDATE = payload.get('created_at')
     self.RDC_oxygen = payload.get('RDC_ID')
@@ -242,13 +241,8 @@ class main():
 if __name__ == '__main__':
   try:
       FINLAND_BACKEND = main()
-      Thread(target=FINLAND_BACKEND.default()).start()
+      Thread(target=FINLAND_BACKEND.default(),daemon=True).start()
       supabase_manager.realtime_RDC(FINLAND_BACKEND.callback1_rdc)
-
-
-
-        
-
 
 
   except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
