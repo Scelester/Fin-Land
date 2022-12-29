@@ -221,6 +221,9 @@ class main():
     # check if there was change in supabase rcd table
     self.overrideRDC_mode = True
 
+    with open('test.txt', 'w') as file:
+      file.write("success!")
+
 
 
 
