@@ -32,59 +32,64 @@ from send_mail import send_mail
 
 
 
-# setting up goio keys
-gpio.setmode(gpio.BCM)
-
-# servo motor setup
-gpio.setup(14, gpio.OUT) # output signal fo GPIO
-
-
-
 
 class main():
-  
-  food_dispenser_servo = gpio.PWM(14,50)    # setting frequency
-  servo_initial_duty = 1
-  STATE_SERVO = False
+  def __init__(self):
+    # setting up goio keys
+    gpio.setmode(gpio.BCM)
+
+    # servo motor setup
+    gpio.setup(14, gpio.OUT) # output signal fo GPIO
+
+    self.food_dispenser_servo = gpio.PWM(14,50)    # setting frequency
+    self.servo_initial_duty = 1
+    self.STATE_SERVO = False
+
+    #----------------------------- Date & time sets ------------------------------
+    self.datetx = datetime.datetime.now()
 
 
 
-  #----------------------------- Date & time sets ------------------------------
-  datetx = datetime.datetime.now()
+    # --------------------------- Clock setup ------------------------------------
+    self.initial_timer = clock()
+    self.initial_food_timer = self.initial_timer
 
 
 
-  # --------------------------- Clock setup ------------------------------------
-  initial_timer = clock()
-  initial_food_timer = initial_timer
+    # --------------------------- Relay stuff ------------------------------------
+    self.relay_pin1 = 16   # acidic motor
+    self.relay_pin2 = 20   # basic motor
+    self.relay_pin3 = 21   # oxygen motor
+    self.relay_pin4 = 26   # dispenser motor
+    gpio.setup(self.relay_pin1,gpio.OUT)
+    gpio.setup(self.relay_pin2,gpio.OUT)
+    gpio.setup(self.relay_pin3,gpio.OUT)
+    gpio.setup(self.relay_pin4,gpio.OUT)
+    self.STATE_RELAY1 = False     # acidic moter state
+    self.STATE_RELAY2 = False     # basic moter state
+    self.STATE_RELAY3 = False     # oxygen motor state
+    self.relay_RDC_Timer = 0      # time value that will
+      
 
 
+    # --------------------------------- Inputs ----------------------------------
 
-  # --------------------------- Relay stuff ------------------------------------
-  relay_pin1 = 16   # acidic motor
-  relay_pin2 = 20   # basic motor
-  relay_pin3 = 21   # oxygen motor
-  relay_pin4 = 26   # dispenser motor
-  gpio.setup(relay_pin1,gpio.OUT)
-  gpio.setup(relay_pin2,gpio.OUT)
-  gpio.setup(relay_pin3,gpio.OUT)
-  gpio.setup(relay_pin4,gpio.OUT)
-  STATE_RELAY1 = False     # acidic moter state
-  STATE_RELAY2 = False     # basic moter state
-  STATE_RELAY3 = False     # oxygen motor state
-  relay_RDC_Timer = 0      # time value that will
-     
+    # Temp sensor setup
+    self.temppin = 23
+    gpio.setup(temppin,gpio.IN)
+    
 
 
-  # --------------------------------- Inputs ----------------------------------
+    self.inputer_sender_lopper = 0
 
-  # Temp sensor setup
-  temppin = 23
-  gpio.setup(temppin,gpio.IN)
-  
-
-
-  inputer_sender_lopper = 0
+    print(str(self.datetx.hour)+"."+str(self.datetx.minute))
+    # shared vairable
+    self.RDC_id = None
+    self.RDC_upDATE = None
+    self.RDC_oxygen = None
+    self.RDC_PH = None
+    self.RDC_time = None
+    self.overrideRDC_mode = False
 
   def tempdata(self):
     return gpio.input(self.temppin)
@@ -119,15 +124,7 @@ class main():
     
     return float(phval),float(chan.voltage)
 
-  def __init__(self):
-    print(str(self.datetx.hour)+"."+str(self.datetx.minute))
-    # shared vairable
-    self.RDC_id = None
-    self.RDC_upDATE = None
-    self.RDC_oxygen = None
-    self.RDC_PH = None
-    self.RDC_time = None
-    self.overrideRDC_mode = False
+  
 
       
   # ----------------------------------------------------------------
