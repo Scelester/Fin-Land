@@ -179,7 +179,7 @@ class main():
       else:
         self.relay_factor()
 
-      if not overrideRDC_mode:
+      if not self.overrideRDC_mode:
         if ph_valueNvolt[0] < 6:
           self.STATE_RELAY1 = True
         if ph_valueNvolt[0] > 9:
@@ -191,7 +191,7 @@ class main():
       else:
         self.relay_RDC_Timer = clock()
         if int(clock() - self.relay_RDC_Timer) > RDC_time:
-          overrideRDC_mode = False
+          self.overrideRDC_mode = False
           self.STATE_RELAY1 = False
           self.STATE_RELAY2 = False
           self.STATE_RELAY3 = False
