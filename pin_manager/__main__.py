@@ -261,7 +261,7 @@ if __name__ == '__main__':
       loop = asyncio.get_event_loop()
       FINLAND_BACKEND = main()
       Thread(target=FINLAND_BACKEND.default).start()
-      Thread(target=FINLAND_BACKEND.constant_RDC_fetcher,args=[e]).start()
+      Thread(target=FINLAND_BACKEND.constant_RDC_fetcher).start()
 
         
 
