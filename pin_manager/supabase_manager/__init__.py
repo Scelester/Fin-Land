@@ -26,7 +26,7 @@ async def send_ph_value_to_database(ph):
     return data 
 
 async def send_ph_voltage_to_database(voltage):
-    data = await supabase.table("PH-data").insert([{"voltage":voltage}])
+    data = await supabase.table("PH-data").insert([{"Voltage":voltage}])
     return data
 
 # ------------------------------
@@ -64,6 +64,6 @@ def realtime_RDC(callbackfunc):
     s = Socket(URL)
     s.connect()
 
-    channel_1 = s.set_channel("realtime:rec")
+    channel_1 = s.set_channel("realtime:remote_control_data")
     channel_1.join().on("UPDATE", callbackfunc)
     s.listen()

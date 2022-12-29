@@ -3,8 +3,8 @@ from time import sleep
 def start_servo(servo,duty):
     servo.start(0)
     print("================ servo running =========================")
-
-    # servo.ChangeDutyCycle(duty)              -> test remaning
+    sleep(1)
+    servo.ChangeDutyCycle(duty)
     
     
     duty = 17 # rotating to about 170 degrees
