@@ -259,9 +259,7 @@ if __name__ == '__main__':
   try:
       FINLAND_BACKEND = main()
       # Thread(target=FINLAND_BACKEND.default).start()
-      RDCTHREAD = Thread(target=FINLAND_BACKEND.constant_RDC_fetcher)
-      RDCTHREAD.start()
-      RDCTHREAD.join()
+      Thread(target=FINLAND_BACKEND.constant_RDC_fetcher).start()
 
 
         

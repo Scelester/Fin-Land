@@ -69,7 +69,9 @@ def innner_wrapper():
     s.listen()
 
 def realtime_RDC(callbackfunc):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(innner_wrapper)
 
-    asyncio.set_event_loop(asyncio.new_event_loop())
 
     
