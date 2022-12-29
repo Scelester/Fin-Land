@@ -57,7 +57,7 @@ async def get_remote_control_data():
 
 
 
-def innner_wrapper():
+async def innner_wrapper():
     URL = f"wss://eobfgehqjibbzwripnmd.supabase.co/realtime/v1/websocket?apikey={D_Key}"
 
 
