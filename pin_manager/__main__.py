@@ -120,6 +120,7 @@ class main():
       
       if self.STATE_SERVO:
             start_servo(self.food_dispenser_servo, self.servo_initial_duty)
+      else:
             stop_servo(self.food_dispenser_servo, self.servo_initial_duty)
           
       if self.inputer_sender_lopper >= 20:
@@ -186,7 +187,7 @@ class main():
       if (self.initial_food_timer/60) > 10:
         self.STATE_SERVO = True
         self.initial_food_timer = clock()
-      elif (self.initial_food_timer/60) > 1:
+      elif (self.initial_food_timer/60) > 0.5:
         self.STATE_SERVO = False
      
 
@@ -241,7 +242,9 @@ if __name__ == '__main__':
   try:
       FINLAND_BACKEND = main()
       FINLAND_BACKEND.default()
-      Thread(target=supabase_manager.realtime_RDC,args=[FINLAND_BACKEND.callback1_rdc],daemon=False).start()
+      rrdct = Thread(target=supabase_manager.realtime_RDC,args=[FINLAND_BACKEND.callback1_rdc],daemon=False)
+      rrdct.start()
+      rrdct.join()
 
 
         
