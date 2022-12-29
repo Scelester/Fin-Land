@@ -115,7 +115,7 @@ class main():
   # ----------------------------------------------------------------    
   def default(self):
     while True:
-      ph_valueNvolt = get_ph_value(gpio.setup,gpio.BCM)
+      ph_valueNvolt = get_ph_value(gpio.setmode,gpio.BCM)
       temp_value = float(self.tempdata())
       
       if self.STATE_SERVO:
