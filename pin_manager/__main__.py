@@ -106,7 +106,7 @@ class main():
 
 
   # relay re-factor
-  def relay_factor(self,AM=1,BM=1,OM=1,DM=1):
+  def relay_factor(self,AM=0,BM=0,OM=0,DM=0):
     gpio.output(self.relay_pin1,AM)
     gpio.output(self.relay_pin2,BM)
     gpio.output(self.relay_pin3,OM)
