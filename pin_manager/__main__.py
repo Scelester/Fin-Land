@@ -76,7 +76,7 @@ class main():
 
     # Temp sensor setup
     self.temppin = 23
-    gpio.setup(temppin,gpio.IN)
+    gpio.setup(self.temppin,gpio.IN)
     
 
 
