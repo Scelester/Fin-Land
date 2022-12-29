@@ -241,7 +241,7 @@ class main():
 if __name__ == '__main__':
   try:
       FINLAND_BACKEND = main()
-      rrdct = Thread(target=FINLAND_BACKEND.default())
+      Thread(target=FINLAND_BACKEND.default()).start()
       supabase_manager.realtime_RDC(FINLAND_BACKEND.callback1_rdc)
 
 
