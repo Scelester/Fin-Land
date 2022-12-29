@@ -32,20 +32,22 @@ from send_mail import send_mail
 from Dphsense import get_ph_value
 
 
-def get_data_from_file(filename_path):
-  with open(filename_path, 'r') as file:
+def get_data_from_file():
+  with open('pin_manager/datafile.txt', 'r') as file:
     context = file.readline()
     context = context.split(',')
     return context
 
-def reset_data_from_file(filename_path):
-  with open(filename_path, 'w') as file:
+def reset_data_from_file():
+  with open('pin_manager/datafile.txt', 'w') as file:
     x = '10' + "," +  'somedate' + "," +  '0' + "," +  '0' + ","+ '0' + "," +  "0"
     file.write(x)
 
+
+
 class main():
   def __init__(self):
-    reset_data_from_file('pin_manager/datafile.txt')
+    reset_data_from_file()
 
     # setting up goio keys
     gpio.setmode(gpio.BCM)
@@ -63,8 +65,7 @@ class main():
 
 
     # --------------------------- Clock setup ------------------------------------
-    self.initial_timer = clock()
-    self.initial_food_timer = self.initial_timer
+    self.initial_food_timer = clock()
 
 
 
@@ -95,14 +96,12 @@ class main():
 
     print(str(self.datetx.hour)+"."+str(self.datetx.minute))
     # shared vairable
-    ggfilevar = get_data_from_file('pin_manager/datafile.txt')
+    
+    self.ggfilevar = get_data_from_file()
 
-    self.RDC_id = ggfilevar[0]
-    self.RDC_upDATE = ggfilevar[1]
-    self.RDC_oxygen = ggfilevar[2]
-    self.RDC_PH = ggfilevar[3]
-    self.RDC_time = ggfilevar[4]
-    self.overrideRDC_mode = ggfilevar[5]
+    self.set_after_get_data_from_file()
+
+
 
   def tempdata(self):
     return gpio.input(self.temppin)
@@ -114,6 +113,14 @@ class main():
     gpio.output(self.relay_pin2,BM)
     gpio.output(self.relay_pin3,OM)
     gpio.output(self.relay_pin4,BM)
+
+  def set_after_get_data_from_file(self):
+    self.RDC_id = self.ggfilevar[0]
+    self.RDC_upDATE = self.ggfilevar[1]
+    self.RDC_oxygen = int(self.ggfilevar[2])
+    self.RDC_PH = int(self.ggfilevar[3])
+    self.RDC_time = int(self.ggfilevar[4])
+    self.overrideRDC_mode = self.ggfilevar[5]
 
   """"""
   
@@ -128,6 +135,7 @@ class main():
   # ----------------------------------------------------------------    
   def default(self):
     while True:
+      
       ph_valueNvolt = get_ph_value()
       temp_value = float(self.tempdata())
       
@@ -162,7 +170,7 @@ class main():
         self.relay_factor(AM=0,DM=0)
 
       elif self.STATE_RELAY2:
-        self.relay_factor(BM=0,OM=1)
+        self.relay_factor(BM=0,DM=0)
 
       # oxygen motor
       elif not self.STATE_RELAY3:   # if oxygen motor is not already running
@@ -175,7 +183,7 @@ class main():
       else:
         self.relay_factor()
 
-      if not self.overrideRDC_mode:
+      if self.overrideRDC_mode == '0':
         if ph_valueNvolt[0] < 6:
           self.STATE_RELAY1 = True
         if ph_valueNvolt[0] > 9:
@@ -187,15 +195,15 @@ class main():
       else:
         self.relay_RDC_Timer = clock()
         if int(clock() - self.relay_RDC_Timer) > RDC_time:
-          self.overrideRDC_mode = False
+          reset_data_from_file()
           self.STATE_RELAY1 = False
           self.STATE_RELAY2 = False
           self.STATE_RELAY3 = False
 
-        elif RDC_oxygen == 1:
+        elif self.RDC_oxygen == 1:
           self.STATE_RELAY3 = True
 
-        elif RDC_PH == 1:
+        elif self.RDC_PH == 1:
           self.STATE_RELAY1 = True
 
         elif RDC_PH == 2:
@@ -255,11 +263,13 @@ if __name__ == '__main__':
   except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
     print("Keyboard interrupt")
     print("clean up") 
-    gpio.cleanup() # cleanup all GPIO 
+    
 
   # # other errors
   # except:
   #    print("some error") 
-
+  finally:
+    print("clean up")
+    gpio.cleanup() # cleanup all GPIO 
 
 
