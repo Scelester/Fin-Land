@@ -185,7 +185,7 @@ class main():
 
       if self.initial_food_timer >= 60:
         self.STATE_SERVO = True
-        self.initial_food_timer = clock()
+        self.initial_food_timer = 0
       elif self.initial_food_timer >= 10:
         self.STATE_SERVO = False
      
