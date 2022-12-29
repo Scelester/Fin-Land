@@ -119,8 +119,8 @@ class main():
       
       if self.STATE_SERVO:
             start_servo(self.food_dispenser_servo, self.servo_initial_duty)
-      else:
-            stop_servo(self.food_dispenser_servo, self.servo_initial_duty)
+            self.STATE_SERVO = False
+     
           
       if self.inputer_sender_lopper >= 20:
         asyncio.run( supabase_manager.send_ph_value_to_database(
