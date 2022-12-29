@@ -32,7 +32,7 @@ def get_ph_value():
     # print('Raw ADC Value: ', chan.value)
     # print('ADC Voltage: ' + str(chan.voltage) + 'V')
     
-    phval = (chan.voltage + 27.046) * (10.24/6)/5
+    phval = (chan.voltage + 20.046) * (10.24/6)/5
 
     # return ((chan.voltage*10)/59.16)*1000
 
