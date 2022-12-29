@@ -103,28 +103,6 @@ class main():
     gpio.output(self.relay_pin4,BM)
   
   """"""
-  def get_ph_value(self):
-    gpio.setmode(gpio.BCM)
-    # create the spi bus
-    spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
-
-    # create the cs (chip select)
-    cs = digitalio.DigitalInOut(board.D5)
-
-    # create the mcp object
-    mcp = MCP.MCP3008(spi, cs)
-
-    # create an analog input channel on pin 0 
-    chan = AnalogIn(mcp, MCP.P0)
-
-
-    print('Raw ADC Value: ', chan.value)
-    print('ADC Voltage: ' + str(chan.voltage) + 'V')
-    
-    phval = (float(chan.voltage) * 1024) / 5 / 60
-    
-    return float(phval),float(chan.voltage)
-
   
 
       
@@ -137,7 +115,7 @@ class main():
   # ----------------------------------------------------------------    
   def default(self):
     while True:
-      # ph_valueNvolt = self.get_ph_value()
+      ph_valueNvolt = get_ph_value()
       temp_value = float(self.tempdata())
       
       if self.STATE_SERVO:

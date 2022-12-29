@@ -11,11 +11,12 @@ import digitalio
 import board
 import adafruit_mcp3xxx.mcp3008 as MCP
 from adafruit_mcp3xxx.analog_in import AnalogIn
+from RPi import GPIO
 # ------------------------------
 import time
 
 
-
+GPIO.setmode(GPIO.BCM)
 
 def get_ph_value():
     # create the spi bus
@@ -38,7 +39,3 @@ def get_ph_value():
     
     return float(phval),float(chan.voltage)
 
-if __name__ == '__main__':
-    while True:
-        print(get_ph_value())
-        time.sleep(1)
