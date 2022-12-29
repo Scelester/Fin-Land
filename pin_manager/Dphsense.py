@@ -46,6 +46,6 @@ import time
 
 while True:
     time.sleep(2)
-    get_ph_value(xsetmod, xmode)
+    get_ph_value()
 
 
