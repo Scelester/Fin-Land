@@ -249,7 +249,7 @@ if __name__ == '__main__':
   try:
       FINLAND_BACKEND = main()
       FINLAND_BACKEND.default()
-      Thread(target=supabase_manager.realtime_RDC,args=[FINLAND_BACKEND.callback1_rdc]).start()
+      Thread(target=supabase_manager.realtime_RDC,args=[FINLAND_BACKEND.callback1_rdc],daemon=False).start()
 
 
         
