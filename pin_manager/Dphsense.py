@@ -13,8 +13,8 @@ import adafruit_mcp3xxx.mcp3008 as MCP
 from adafruit_mcp3xxx.analog_in import AnalogIn
 # ------------------------------  
 
-def get_ph_value(setmod,mode):
-    setmod(mode)
+def get_ph_value(xsetmod,xmode):
+    xsetmod(xmode)
     # create the spi bus
     spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
 
