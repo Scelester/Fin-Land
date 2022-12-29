@@ -69,7 +69,7 @@ async def wrapped_realtime_RDC(callbackfunc):
     URL = f"wss://eobfgehqjibbzwripnmd.supabase.co/realtime/v1/websocket?apikey={D_Key}"
 
     s = Socket(URL)
-    s.connect()
+    await s.connect()
 
     channel_1 = s.set_channel("realtime:rec")
     channel_1.join().on("UPDATE", callbackfunc)
