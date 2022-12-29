@@ -31,7 +31,7 @@ def get_ph_value(xsetmod,xmode):
     # print('Raw ADC Value: ', chan.value)
     # print('ADC Voltage: ' + str(chan.voltage) + 'V')
     
-    phval = (float(chan.voltage) * 1024) / 5 / 60
+    phval = float("{:.2f}".format((float(chan.voltage) * 1024) / 5 / 60))
 
     print(float(phval))
     

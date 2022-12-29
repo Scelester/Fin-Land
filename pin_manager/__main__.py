@@ -221,14 +221,6 @@ class main():
     self.overrideRDC_mode = True
 
 
-    
-
-
-
-    
-
-
-
 
 
 
