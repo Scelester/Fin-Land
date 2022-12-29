@@ -183,7 +183,7 @@ class main():
         elif RDC_PH == 2:
           self.STATE_RELAY3 = True
 
-      if (self.Winitial_food_timer/60) > 10:
+      if (self.initial_food_timer/60) > 10:
         self.STATE_SERVO = True
         self.initial_food_timer = clock()
       elif (self.initial_food_timer/60) > 1:
