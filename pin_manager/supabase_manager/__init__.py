@@ -57,7 +57,9 @@ async def get_remote_control_data():
 
 
 
-async def innner_wrapper():
+
+
+def realtime_RDC(callbackfunc):
     URL = f"wss://eobfgehqjibbzwripnmd.supabase.co/realtime/v1/websocket?apikey={D_Key}"
 
 
@@ -67,11 +69,6 @@ async def innner_wrapper():
     channel_1 = s.set_channel("realtime:rec")
     channel_1.join().on("UPDATE", callbackfunc)
     s.listen()
-
-def realtime_RDC(callbackfunc):
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(innner_wrapper)
 
 
     
