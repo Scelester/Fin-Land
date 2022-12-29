@@ -28,10 +28,13 @@ def get_ph_value(xsetmod,xmode):
     chan = AnalogIn(mcp, MCP.P0)
 
 
-    print('Raw ADC Value: ', chan.value)
-    print('ADC Voltage: ' + str(chan.voltage) + 'V')
+    # print('Raw ADC Value: ', chan.value)
+    # print('ADC Voltage: ' + str(chan.voltage) + 'V')
     
     phval = (float(chan.voltage) * 1024) / 5 / 60
+
+    print(float(phval))
     
     return float(phval),float(chan.voltage)
+
 
