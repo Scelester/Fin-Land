@@ -43,6 +43,7 @@ def reset_data_from_file():
     file.write(x)
 
 gpio.setmode(gpio.BCM)
+gpio.setwarnings(False)
 
 class main():
   def __init__(self):
@@ -63,7 +64,9 @@ class main():
 
 
     # --------------------------- Clock setup ------------------------------------
+    self.initial_timer = clock()
     self.initial_food_timer = clock()
+    
 
 
 
@@ -89,14 +92,14 @@ class main():
     gpio.setup(self.temppin,gpio.IN)
     
 
-
+    # counter variables
     self.inputer_sender_lopper = 0
+    self.relay_sender_looper = 0
 
-    print(str(self.datetx.hour)+"."+str(self.datetx.minute))
-    # shared vairable
-    
-    self.ggfilevar = get_data_from_file()
+    # show time
+    print("TIME: "+str(self.datetx.hour)+"."+str(self.datetx.minute))
 
+    # before loop load remote variables
     self.set_after_get_data_from_file()
 
 
@@ -113,6 +116,7 @@ class main():
     gpio.output(self.relay_pin4,BM)
 
   def set_after_get_data_from_file(self):
+    ggfilevar = get_data_from_file()
     self.RDC_id = self.ggfilevar[0]
     self.RDC_upDATE = self.ggfilevar[1]
     self.RDC_oxygen = int(self.ggfilevar[2])
@@ -132,31 +136,28 @@ class main():
   #                                                                 |
   # ----------------------------------------------------------------    
   def default(self):
+    self.relay_factor()
     while True:
-      self.relay_factor()
       self.set_after_get_data_from_file()
       ph_valueNvolt = get_ph_value()
       temp_value = float(self.tempdata())
 
-      print(gpio.input(23))
       if self.STATE_SERVO:
           self.servo.min()
           sleep(0.5)
           self.servo.mid()
           sleep(0.5)
           self.servo.max()
-          sleep(1)
-          self.servo.mid()
-          sleep(1)
-          self.servo.max()
           self.STATE_SERVO = False
       else:
-        self.servo.max()
-        sleep(0.5)
-        self.servo.mid()
-        sleep(0.5)
-        self.servo.min()
-        sleep(1)
+        if self.relay_sender_looper == 10:
+          self.relay_sender_looper = 0
+          self.servo.max()
+          sleep(0.5)
+          self.servo.mid()
+          sleep(0.5)
+          self.servo.min()
+          sleep(1)
 
      
           
@@ -187,10 +188,10 @@ class main():
       # oxygen motor
       elif not self.STATE_RELAY3:   # if oxygen motor is not already running
         if (self.datetx.minute > 10 and self.datetx.minute < 25) or (self.datetx.minute > 40 and self.datetx.minute < 55):
-          gpio.output(self.relay_pin3,0)
+          self.relay_factor(OM=0)
 
       elif self.STATE_RELAY3:
-        self.relay_factor(OM=0,DM=0)
+        self.relay_factor(OM=0)
 
       else:
         self.relay_factor()
@@ -204,7 +205,7 @@ class main():
           send_mai("Temperature High", f"Your Fishtank Temperature is {temp_value}.")
         elif temp_value <= 19:
           send_mail("Temprature Low", f"Your Fishtank Temperature is {temp_value}.")
-      else:
+      elif self.overrideRDC_mode == '1':
         self.relay_RDC_Timer = clock()
         if int(clock() - self.relay_RDC_Timer) > RDC_time:
           reset_data_from_file()
@@ -233,27 +234,10 @@ class main():
 
       
       self.inputer_sender_lopper += 1
+      self.relay_sender_looper += 1
 
       # delay some time
-      sleep(1)
-  
-  
-  # ----------------------------------------------------------------
-  #                                                                 |
-  #                                                                 |
-  #  Looping function that fetches data from the                    |
-  # supabase DB with low delay.. that runs on another thread        |
-  #                                                                 |
-  #                                                                 |
-  # ----------------------------------------------------------------|
-        
-
-
-
-
-
-
-
+      sleep(0.9)
 
 
 
@@ -281,6 +265,7 @@ if __name__ == '__main__':
   # except:
   #    print("some error") 
   finally:
+    FINLAND_BACKEND.main()
+
+    # cleaning up the data
     print("clean up")
-
-
