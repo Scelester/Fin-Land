@@ -54,8 +54,6 @@ class main():
     # servo motor setup
     self.servo = Servo(14) # output signal fo GPIO
 
-    self.food_dispenser_servo = gpio.PWM(14,50)    # setting frequency
-    self.servo_initial_duty = 1
     self.STATE_SERVO = True
 
     #----------------------------- Date & time sets ------------------------------
