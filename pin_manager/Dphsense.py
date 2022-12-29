@@ -32,24 +32,15 @@ def get_ph_value():
     # print('Raw ADC Value: ', chan.value)
     # print('ADC Voltage: ' + str(chan.voltage) + 'V')
     
-    phval = (chan.voltage + 23.77) * (10.24/6)/5
+    phval = (chan.voltage + 27.046) * (10.24/6)/5
 
-    return ((chan.voltage*10)/59.16)*1000
+    # return ((chan.voltage*10)/59.16)*1000
 
     # print(float(phval))
     
-    # return float(phval),float(chan.voltage)
+    return float(phval),float(chan.voltage)
 
-
-
-import time
-
-
-l = []
-for n in range(20):
-    time.sleep(1)
-    l.append(get_ph_value())
-
-
-print(sum(l)/20)
-
+from time import sleep
+while True:
+    sleep(2)
+    print(get_ph_value())
