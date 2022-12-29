@@ -227,7 +227,7 @@ class main():
         
 
   def callback1_wrapper(self,payload):
-    Thread(target=callback1,args=(payload['record'])).start()
+    self.callback1(payload['record']).start()
 
 
   def constant_RDC_fetcher(self):
