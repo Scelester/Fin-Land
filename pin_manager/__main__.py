@@ -212,26 +212,21 @@ class main():
   # supabase DB with low delay.. that runs on another thread        |
   #                                                                 |
   #                                                                 |
-  # ----------------------------------------------------------------
-  def callback1(self,payload):
-      self.RDC_id = payload.get('RDC_ID')
-      self.RDC_upDATE = payload.get('created_at')
-      self.RDC_oxygen = payload.get('RDC_ID')
-      self.RDC_PH  = payload.get('RDC_ID')
-      self.RDC_time = payload.get('RDC_ID')
+  # ----------------------------------------------------------------|
+        
 
-      # check if there was change in supabase rcd table
-      self.overrideRDC_mode = True
+  def callback1_rdc(self,payload):
+    self.RDC_id = payload.get('RDC_ID')
+    self.RDC_upDATE = payload.get('created_at')
+    self.RDC_oxygen = payload.get('RDC_ID')
+    self.RDC_PH  = payload.get('RDC_ID')
+    self.RDC_time = payload.get('RDC_ID')
+
+    # check if there was change in supabase rcd table
+    self.overrideRDC_mode = True
+
+
     
-        
-        
-
-  def callback1_wrapper(self,payload):
-    self.callback1(payload['record']).start()
-
-
-  def constant_RDC_fetcher(self):
-    supabase_manager.realtime_RDC(self.callback1_wrapper)
 
 
 
@@ -259,7 +254,7 @@ if __name__ == '__main__':
   try:
       FINLAND_BACKEND = main()
       # Thread(target=FINLAND_BACKEND.default).start()
-      Thread(target=FINLAND_BACKEND.constant_RDC_fetcher).start()
+      Thread(target=supabase_manager.realtime_RDC,args=[FINLAND_BACKEND.callback1_rdc]).start()
 
 
         
