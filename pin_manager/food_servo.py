@@ -19,5 +19,5 @@ def start_servo(servo,duty):
 
     
 def stop_servo(servo,duty):
-    servo.start(0)
+    print("stop Servo")
     servo.ChangeDutyCycle(duty)
