@@ -39,8 +39,3 @@ def get_ph_value():
     # print(float(phval))
     
     return float(phval),float(chan.voltage)
-
-from time import sleep
-while True:
-    sleep(2)
-    print(get_ph_value())
