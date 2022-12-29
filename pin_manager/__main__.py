@@ -12,7 +12,7 @@ from time import sleep
 from time import perf_counter as clock
 import asyncio
 import datetime
-from threading import Thread,Event
+from gpiozero import Servo
 
 
 
@@ -39,7 +39,7 @@ class main():
     gpio.setmode(gpio.BCM)
 
     # servo motor setup
-    gpio.setup(14, gpio.OUT) # output signal fo GPIO
+    self.servo = Servo(14) # output signal fo GPIO
 
     self.food_dispenser_servo = gpio.PWM(14,50)    # setting frequency
     self.servo_initial_duty = 1
@@ -118,7 +118,11 @@ class main():
       temp_value = float(self.tempdata())
       
       if self.STATE_SERVO:
-            start_servo(self.food_dispenser_servo, self.servo_initial_duty)
+            self.servo.min()
+            sleep(0.5)
+            self.servo.mid()
+            sleep(0.5)
+            self.servo.max()
             self.STATE_SERVO = False
      
           
