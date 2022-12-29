@@ -149,7 +149,7 @@ class main():
       # oxygen motor
       elif not self.STATE_RELAY3:   # if oxygen motor is not already running
         if (self.datetx.minute > 10 and self.datetx.minute < 25) or (self.datetx.minute > 40 and self.datetx.minute < 55):
-          gpio.output(relay_pin3,0)
+          gpio.output(self.relay_pin3,0)
 
       elif self.STATE_RELAY3:
         self.relay_factor(OM=0,DM=0)
