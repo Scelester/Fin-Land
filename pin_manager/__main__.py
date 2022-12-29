@@ -28,7 +28,7 @@ from send_mail import send_mail
 
 
 
-class main(gpio):
+class main():
   # setting up goio keys
   gpio.setmode(gpio.BCM)
 
