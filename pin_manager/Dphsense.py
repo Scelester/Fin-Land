@@ -12,6 +12,8 @@ import board
 import adafruit_mcp3xxx.mcp3008 as MCP
 from adafruit_mcp3xxx.analog_in import AnalogIn
 # ------------------------------  
+import math
+
 
 def get_ph_value():
     # create the spi bus
@@ -32,20 +34,22 @@ def get_ph_value():
     
     phval = (chan.voltage + 23.77) * (10.24/6)/5
 
-    print(((chan.voltage*10)/59.16)*100)
+    retunr ((chan.voltage*10)/59.16)*100
 
     # print(float(phval))
     
-    return float(phval),float(chan.voltage)
+    # return float(phval),float(chan.voltage)
 
 
 
 import time
 
 
+l = []
+for n in range(20):
+    time.sleep(1)
+    l.append(get_ph_value())
 
-while True:
-    time.sleep(2)
-    get_ph_value()
 
+print(sum(l)/20)
 
