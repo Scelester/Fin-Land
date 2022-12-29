@@ -183,7 +183,7 @@ class main():
         elif RDC_PH == 2:
           self.STATE_RELAY3 = True
 
-      if (self.initial_food_timer/60) > 10:
+      if (self.Winitial_food_timer/60) > 10:
         self.STATE_SERVO = True
         self.initial_food_timer = clock()
       elif (self.initial_food_timer/60) > 1:
@@ -249,7 +249,7 @@ if __name__ == '__main__':
   try:
       FINLAND_BACKEND = main()
       Thread(target=FINLAND_BACKEND.default).start()
-      Thread(target=supabase_manager.realtime_RDC,args=[FINLAND_BACKEND.callback1_rdc]).start()
+      # Thread(target=supabase_manager.realtime_RDC,args=[FINLAND_BACKEND.callback1_rdc]).start()
 
 
         
