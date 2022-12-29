@@ -42,7 +42,7 @@ def reset_data_from_file():
     x = '10' + "," +  'somedate' + "," +  '0' + "," +  '0' + ","+ '0' + "," +  "0"
     file.write(x)
 
-
+gpio.setmode(gpio.BCM)
 
 class main():
   def __init__(self):
