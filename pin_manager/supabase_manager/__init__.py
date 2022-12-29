@@ -58,6 +58,7 @@ async def get_remote_control_data():
 
 
 def realtime_RDC(callbackfunc):
+
     URL = f"wss://eobfgehqjibbzwripnmd.supabase.co/realtime/v1/websocket?apikey={D_Key}"
 
 

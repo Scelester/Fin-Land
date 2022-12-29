@@ -33,9 +33,11 @@ from Dphsense import get_ph_value
 
 
 
-
 class main():
   def __init__(self):
+    
+    self.event_loop_RDC = asyncio.new_event_loop()
+
     # setting up goio keys
     gpio.setmode(gpio.BCM)
 
@@ -107,6 +109,11 @@ class main():
   def _get_ph_value(self):
     x = get_ph_value()
     return x
+
+  def callback_for_async_default(self):
+    asyncio.set_event_loop(self.event_loop_RDC)
+    asyncio.get_event_loop().call_soon(constant_RDC_fetcher)
+    self.event_loop_RDC.run_forever()
   
   """"""
   
@@ -258,10 +265,9 @@ class main():
 # ----------------------------------------------------------------
 if __name__ == '__main__':
   try:
-      loop = asyncio.get_event_loop()
       FINLAND_BACKEND = main()
       Thread(target=FINLAND_BACKEND.default).start()
-      Thread(target=FINLAND_BACKEND.constant_RDC_fetcher).start()
+      Thread(target=FINLAND_BACKEND.constant_RDC_fetcher,daemon=True).start()
 
         
 
