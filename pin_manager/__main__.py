@@ -102,11 +102,6 @@ class main():
     gpio.output(self.relay_pin3,OM)
     gpio.output(self.relay_pin4,BM)
 
-
-  def _get_ph_value(self):
-    x = get_ph_value()
-    return x
-  
   """"""
   
 
@@ -120,7 +115,7 @@ class main():
   # ----------------------------------------------------------------    
   def default(self):
     while True:
-      ph_valueNvolt = get_ph_value()
+      ph_valueNvolt = get_ph_value(gpio.setup,gpio.BCM)
       temp_value = float(self.tempdata())
       
       if self.STATE_SERVO:
