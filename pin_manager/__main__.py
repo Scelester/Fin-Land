@@ -54,7 +54,7 @@ class main():
     # servo motor setup
     self.servo = Servo(14) # output signal fo GPIO
 
-    self.STATE_SERVO = True
+    self.STATE_SERVO = False
 
     #----------------------------- Date & time sets ------------------------------
     self.datetx = datetime.datetime.now()
@@ -142,6 +142,14 @@ class main():
           self.servo.mid()
           sleep(0.5)
           self.servo.max()
+          sleep(1)
+          self.servo.mid()
+          sleep(1)
+          self.servo.max()
+          sleep(1)
+          self.servo.mid()
+          sleep(1)
+          self.servo.max()
           self.STATE_SERVO = False
       else:
         self.servo.max()
@@ -213,7 +221,7 @@ class main():
         elif RDC_PH == 2:
           self.STATE_RELAY3 = True
 
-      if self.initial_food_timer >= 60:
+      if self.initial_food_timer >= 20:
         self.STATE_SERVO = True
         self.initial_food_timer = 0
       elif self.initial_food_timer >= 10:
