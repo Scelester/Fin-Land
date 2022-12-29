@@ -135,7 +135,7 @@ class main():
       
       ph_valueNvolt = get_ph_value()
       temp_value = float(self.tempdata())
-      print(temp_value)
+      print(gpio.input(23))
       if self.STATE_SERVO:
           self.servo.min()
           sleep(0.5)
