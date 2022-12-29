@@ -26,7 +26,7 @@ async def send_ph_value_to_database(ph):
     return data 
 
 async def send_ph_voltage_to_database(voltage):
-    data = await supabase.table("PH-data").insert([{"Voltage":voltage}])
+    data = await supabase.table("PH-data").insert([{"voltage":voltage}])
     return data
 
 # ------------------------------
