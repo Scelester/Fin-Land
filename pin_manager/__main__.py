@@ -137,7 +137,7 @@ class main():
   # ----------------------------------------------------------------    
   def default(self):
     while True:
-      ph_valueNvolt = self.get_ph_value()
+      # ph_valueNvolt = self.get_ph_value()
       temp_value = float(self.tempdata())
       
       if self.STATE_SERVO:
