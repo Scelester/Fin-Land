@@ -1,7 +1,6 @@
 from threading import Thread
 from time import sleep
-
-
+import asyncio
 
 
 
@@ -31,3 +30,21 @@ from time import sleep
 
 # Thread(target=x).start()
 # Thread(target=y).start()
+
+async def xmain():
+    while True:
+        print(";;gg")
+        sleep(2)
+
+async def this():
+    print("nabin")
+
+loop = asyncio.get_event_loop()
+
+async def main():
+    f1 = loop.create_task(xmain())
+    f2 = loop.create_task(this())
+    await asyncio.wait([f1,f2])
+
+loop.run_until_complete(main())
+loop.close()

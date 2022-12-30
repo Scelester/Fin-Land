@@ -199,15 +199,17 @@ class main():
       if self.overrideRDC_mode == '0':
         if ph_valueNvolt[0] < 6:
           self.STATE_RELAY1 = True
-        if ph_valueNvolt[0] > 9:
+        elif ph_valueNvolt[0] > 9:
           self.STATE_RELAY2 = True
+
         if temp_value >= 30:
           send_mai("Temperature High", f"Your Fishtank Temperature is {temp_value}.")
         elif temp_value <= 19:
           send_mail("Temprature Low", f"Your Fishtank Temperature is {temp_value}.")
+
       elif self.overrideRDC_mode == '1':
         self.relay_RDC_Timer = clock()
-        if int(clock() - self.relay_RDC_Timer) > RDC_time:
+        if int(clock() - self.relay_RDC_Timer) >= self.RDC_time:
           reset_data_from_file()
           self.STATE_RELAY1 = False
           self.STATE_RELAY2 = False
@@ -265,7 +267,7 @@ if __name__ == '__main__':
   # except:
   #    print("some error") 
   finally:
-    FINLAND_BACKEND.main()
+    finland_cleaner = main()
 
     # cleaning up the data
     print("clean up")
