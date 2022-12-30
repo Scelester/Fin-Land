@@ -32,19 +32,20 @@ import asyncio
 # Thread(target=y).start()
 
 async def xmain():
-    while True:
+    for n in range(10):
         print(";;gg")
         sleep(2)
 
 async def this():
-    print("nabin")
+    while True:
+        print("nabin")
 
 loop = asyncio.get_event_loop()
 
 async def main():
     f1 = loop.create_task(xmain())
     f2 = loop.create_task(this())
-    await asyncio.wait([f1,f2])
+    await asyncio.wait([f2,f1])
 
 loop.run_until_complete(main())
 loop.close()
