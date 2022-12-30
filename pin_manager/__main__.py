@@ -163,12 +163,8 @@ class main():
           
       if self.inputer_sender_lopper >= 20:
         asyncio.run( supabase_manager.send_ph_value_to_database(
-            ph=ph_valueNvolt[0]
+            ph=ph_valueNvolt[0],voltage=ph_valueNvolt
           ))
-
-        asyncio.run( supabase_manager.send_ph_voltage_to_database(
-            voltage=ph_valueNvolt[1]
-            ))
 
         asyncio.run(supabase_manager.send_temp_value_to_database(
           temp=temp_value

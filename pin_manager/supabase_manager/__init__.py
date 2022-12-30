@@ -71,4 +71,3 @@ def realtime_RDC(callbackfunc):
     s.listen()
 
 
-print(asyncio.run(send_temp_value_to_database(16)))
