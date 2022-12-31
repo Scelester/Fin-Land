@@ -14,7 +14,8 @@ import asyncio
 import datetime
 from gpiozero import Servo
 
-
+gpio.setmode(gpio.BCM)
+gpio.setwarnings(False)
 
 # for adc imports 
 import busio
@@ -42,8 +43,7 @@ def reset_data_from_file():
     x = '10' + "," +  'somedate' + "," +  '0' + "," +  '0' + ","+ '0' + "," +  "0"
     file.write(x)
 
-gpio.setmode(gpio.BCM)
-gpio.setwarnings(False)
+
 
 reset_data_from_file()
 
